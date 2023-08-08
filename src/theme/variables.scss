@@ -8,6 +8,8 @@ http://ionicframework.com/docs/theming/ */
   --ion-text-color: #FFCB74; /* Couleur du texte principal */
   --ion-link-color: #FFBC47; /* Couleur des liens */
   --ion-secondary-text-color: #A3A3A3; /* Couleur des textes moins importants */
+  --ion-white-color: #F4FAFF;
+  --ion-black-color: #151515;
 }
 
 @media (prefers-color-scheme: light) {
@@ -18,5 +20,6 @@ http://ionicframework.com/docs/theming/ */
     --ion-text-color: #FFCB74; /* Couleur du texte principal */
     --ion-link-color: #FFBC47; /* Couleur des liens */
     --ion-secondary-text-color: #A3A3A3; /* Couleur des textes moins importants */
+    --ion-black-color: #151515;
   }
 }

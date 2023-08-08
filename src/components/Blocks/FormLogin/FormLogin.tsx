@@ -1,5 +1,5 @@
 import style from "./FormLogin.module.scss";
-import buttonStyle from "../../../components/Elements/Button/Button.module.scss";
+
 import { Input } from "../../Elements/Input/Input";
 import { useState } from "react";
 
@@ -27,7 +27,7 @@ export const FormLogin: React.FC<ContainerProps> = () => {
         <a href="#" className={style.link}>
           mot de passe oublié ?
         </a>
-        <input type="submit" value="Se connecter" className={buttonStyle.button}></input>
+        <input type="submit" value="Se connecter" className={style.submitButton}></input>
       </form>
     </>
   );
