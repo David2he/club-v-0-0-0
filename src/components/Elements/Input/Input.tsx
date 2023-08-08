@@ -1,5 +1,5 @@
 import style from "./Input.module.scss";
-import { InputProps } from "../../types/ComponentsElementsTypes";
+import { InputProps } from "../../../types/ComponentsElementsTypes";
 export const Input = ({ iconURL, altIcon, placeholder, labelType }: InputProps) => {
   return (
     <>

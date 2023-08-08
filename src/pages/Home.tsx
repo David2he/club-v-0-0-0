@@ -1,23 +1,15 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import ExploreContainer from '../components/Blocks/ExploreContainer';
-import './Home.scss';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { FormLogin } from "../components/Blocks/FormLogin/FormLogin";
+import { Header } from "../components/Blocks/Header/Header";
+import "./Home.scss";
+
 
 const Home: React.FC = () => {
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Blank</IonTitle>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Blank</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <ExploreContainer />
-      </IonContent>
+    <IonPage id="main-content" className='container'>
+      <Header />
+      <FormLogin />
+ 
     </IonPage>
   );
 };

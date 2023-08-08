@@ -198,6 +198,10 @@
   text-decoration-line: underline;
 }
 
-a {
-  color: var(--ion-text-color);
+@mixin bigButtonText {
+  font-family: DM Serif Display;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
