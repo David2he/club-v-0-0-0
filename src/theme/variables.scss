@@ -1,0 +1,22 @@
+/* Ionic Variables and Theming. For more info, please see:
+http://ionicframework.com/docs/theming/ */
+
+/** Ionic CSS Variables **/
+:root {
+  /** primary **/
+  --ion-background-color: #2F2F2F;
+  --ion-text-color: #FFCB74; /* Couleur du texte principal */
+  --ion-link-color: #FFBC47; /* Couleur des liens */
+  --ion-secondary-text-color: #A3A3A3; /* Couleur des textes moins importants */
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    --ion-color-primary: #FFCB74;
+    --ion-color-primary-contrast: #2F2F2F;
+    --ion-background-color: #F4FAFF;
+    --ion-text-color: #FFCB74; /* Couleur du texte principal */
+    --ion-link-color: #FFBC47; /* Couleur des liens */
+    --ion-secondary-text-color: #A3A3A3; /* Couleur des textes moins importants */
+  }
+}
