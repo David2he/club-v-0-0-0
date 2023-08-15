@@ -48,7 +48,9 @@ export const ParrainageCodeLoginChoice = () => {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const code = inputRefs.current.map((input) => input?.value).join("");
+    //// REDIRIGER SUR LE SITE AVEC LE CODE
     console.log(code);
+    
   };
 
   return (
@@ -58,7 +60,7 @@ export const ParrainageCodeLoginChoice = () => {
         <p>OU</p>
         <span></span>
       </div>
-      <p>Code de prrainage</p>
+      <p>Code de parrainage</p>
       <div>
         <form onSubmit={onSubmit}>
           <div className={style.inputCodeContainer}>

@@ -7,6 +7,7 @@
   p {
     color: var(--ion-text-color);
     @include Ltext_02;
+    padding-top: .5rem;
   }
 }
 
@@ -24,6 +25,7 @@
   p {
     @include title_02;
     margin: 0;
+    padding: 0;
     color: var(--ion-text-color);
   }
 }

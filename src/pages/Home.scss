@@ -16,4 +16,11 @@ ion-menu::part(container) {
   justify-content: start;
   flex-direction: column;
   align-items: center;
+  overflow-y: scroll;
 }
+
+.headerContainer {
+  padding-bottom: 8rem;
+}
+
+

@@ -1,27 +1,57 @@
+import React, { useState, FormEvent } from "react";
+import { Input } from "../../Elements/Input/Input";
+import { post } from "../../../services/api";
 import style from "./FormLogin.module.scss";
 
-import { Input } from "../../Elements/Input/Input";
-import { useState } from "react";
+export const FormLogin = () => {
+  const [formData, setFormData] = useState({ email: "", password: "" });
 
-interface ContainerProps {}
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    console.log(formData);
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-export const FormLogin: React.FC<ContainerProps> = () => {
-  const [data, setData] = useState();
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(formData);
+    try {
+      const response = await post("https://jsonplaceholder.typicode.com/posts", {
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+      console.log(response);
+    } catch (error) {
+      console.error("Erreur lors de l'envoi des données :", error);
+    }
+  };
+
   return (
     <>
-      <form id="container" className={style.formContainer}>
+      <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
         <div className={style.inputContainer}>
           <Input
             iconURL={"assets/inputs-icon/mail.svg"}
             altIcon={"iconMail"}
             placeholder={"Mail"}
             labelType={"email"}
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
           />
           <Input
             iconURL={"assets/inputs-icon/password.svg"}
             altIcon={"iconLock"}
             placeholder={"Mot de passe"}
             labelType={"password"}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
           />
         </div>
         <a href="#" className={style.link}>
