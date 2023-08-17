@@ -25,7 +25,9 @@ export const FormLogin = () => {
           password: formData.password,
         }),
       });
+      console.log("Données envoyées !")
       console.log(response);
+      console.log("Données envoyées !")
     } catch (error) {
       console.error("Erreur lors de l'envoi des données :", error);
     }
