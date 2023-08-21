@@ -53,7 +53,7 @@ export const ParrainageCodeLoginChoice = () => {
     console.log(code);
     const openInBrowser = async () => {
       await Browser.open({
-        url: "https://stackoverflow.com/questions/60305746/how-do-i-update-an-object-state-in-react-via-hooks",
+        url: "http://192.168.1.83:8100/register",
       });
     };
     openInBrowser()

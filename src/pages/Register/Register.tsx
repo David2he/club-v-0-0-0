@@ -6,7 +6,10 @@ const Register: React.FC = () => {
     <IonPage id="main-content" className="container">
       <div className="headerContainer">
         <Header />
+        <p>register</p>
       </div>
     </IonPage>
   );
 };
+
+export default Register;

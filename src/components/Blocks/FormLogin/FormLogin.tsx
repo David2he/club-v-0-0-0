@@ -5,7 +5,7 @@ import style from "./FormLogin.module.scss";
 
 export const FormLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [responseData, setResponseData] = useState({ email: "res", password: "res" });
+  const [responseData, setResponseData] = useState({ email: "", password: "" });
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     console.log(formData);
