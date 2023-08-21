@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import style from "./ParrainageCodeLoginChoice.module.scss";
+import { Browser } from "@capacitor/browser";
 
 export const ParrainageCodeLoginChoice = () => {
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -50,7 +51,12 @@ export const ParrainageCodeLoginChoice = () => {
     const code = inputRefs.current.map((input) => input?.value).join("");
     //// REDIRIGER SUR LE SITE AVEC LE CODE
     console.log(code);
-    
+    const openInBrowser = async () => {
+      await Browser.open({
+        url: "https://stackoverflow.com/questions/60305746/how-do-i-update-an-object-state-in-react-via-hooks",
+      });
+    };
+    openInBrowser()
   };
 
   return (
