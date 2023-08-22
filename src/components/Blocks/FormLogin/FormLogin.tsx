@@ -5,7 +5,7 @@ import style from "./FormLogin.module.scss";
 
 export const FormLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-
+  const [responseData, setResponseData] = useState({ email: "", password: "" });
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     console.log(formData);
@@ -26,7 +26,12 @@ export const FormLogin = () => {
         }),
       });
       console.log("Données envoyées !")
-      console.log(response);
+      setResponseData(prevData => ({
+        ...prevData,
+        email: formData.email,
+        password:formData.password,
+      }));
+      console.log(response.body[1])
       console.log("Données envoyées !")
     } catch (error) {
       console.error("Erreur lors de l'envoi des données :", error);
@@ -59,6 +64,8 @@ export const FormLogin = () => {
         <a href="#" className={style.link}>
           mot de passe oublié ?
         </a>
+        {responseData.email}
+    
         <input type="submit" value="Se connecter" className={style.submitButton}></input>
       </form>
     </>
