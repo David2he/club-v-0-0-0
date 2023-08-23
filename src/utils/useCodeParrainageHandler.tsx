@@ -1,15 +1,11 @@
 import { useRef, useEffect } from "react";
 import { Browser } from "@capacitor/browser";
-import style from "./ParraingageCodeForm.module.scss";
-import { ParraingeFormProps } from "../../../types/ComponentsElementsTypes";
 
-export const ParraingageCodeForm = ({
-  goToUrl,
-}: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
+export const useCodeParrainageHandler = (goToUrl?: string) => {
   const currentUrl = new URL(window.location.href);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const codeFromUrl = currentUrl.searchParams.get("code");
-  codeFromUrl ? console.log(codeFromUrl) : null
+  codeFromUrl ? console.log(codeFromUrl) : null;
 
   if (codeFromUrl) {
     const codeArray = codeFromUrl.split("");
@@ -19,7 +15,6 @@ export const ParraingageCodeForm = ({
       }
     });
   }
- 
 
   useEffect(() => {
     const inputElements = inputRefs.current;
@@ -70,13 +65,13 @@ export const ParraingageCodeForm = ({
         ele?.removeEventListener("input", inputHandlers[index]);
       });
     };
-  }, []);
+  }, [])
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const code = inputRefs.current.map((input) => input?.value).join("");
 
-    const openInBrowser = async (currentUrl : URL) => {
+    const openInBrowser = async (currentUrl: URL) => {
       const newUrl = currentUrl.origin + "/register";
       await Browser.open({
         url: `${newUrl}?code=${code}`,
@@ -84,24 +79,9 @@ export const ParraingageCodeForm = ({
     };
     goToUrl ? openInBrowser(currentUrl) : null;
   };
-  return (
-    <>
-      <form onSubmit={onSubmit} className={style.formParrainage}>
-        <div className={style.inputCodeContainer}>
-          {[...Array(6)].map((_, index) => (
-            <input
-              key={index}
-              name="code"
-              placeholder="*"
-              required
-              maxLength={1}
-              className="code-input"
-              ref={(el) => (inputRefs.current[index] = el)}
-            />
-          ))}
-        </div>
-        <input type="submit" value="Checker le code" className={style.submitButton} />
-      </form>
-    </>
-  );
+
+  return {
+    inputRefs,
+    onSubmit,
+  };
 };

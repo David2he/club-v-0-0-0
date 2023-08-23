@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import style from "./ParrainageCodeLoginChoice.module.scss";
 import { Browser } from "@capacitor/browser";
-import { ParraingageCodeForm } from "../../Elements/ParraingageCodeForm/ParraingageCodeForm";
+import { ParraingageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeFormLOGIN/ParrainageCodeForm";
 
 export const ParrainageCodeLoginChoice = () => {
   
