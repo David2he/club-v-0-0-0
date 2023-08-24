@@ -2,12 +2,13 @@ import { useRef, useEffect, useState } from "react";
 import { Browser } from "@capacitor/browser";
 import { useCheckCodeParrainage } from "./useCheckCodeParrainage";
 
-export const useCodeParrainageHandler = (goToUrl?: string) => {
+export const useCodeParrainageHandler = (goToUrl?: string, showError? : any, setShowError? : any, ) => {
   const currentUrl = new URL(window.location.href);
+  const [submitCount, setSubmitCount] = useState(0);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const codeFromUrl = currentUrl.searchParams.get("code");
 
-  const { isLoading, isCodeValid, errorCode, checkCode } = useCheckCodeParrainage();
+  const { errorCode, checkCode } = useCheckCodeParrainage();
   const renderCount = useRef(0);
   if (codeFromUrl && renderCount.current === 0) {
     const codeArray = codeFromUrl.split("");
@@ -19,9 +20,13 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
   }
 
   const onSubmit = (e: React.FormEvent) => {
+    console.log(goToUrl, 'goToUrl')
+
     e.preventDefault();
+    setSubmitCount((prevCount) => prevCount + 1);
     const code = inputRefs.current.map((input) => input?.value).join("");
     const openInBrowser = async (currentUrl: URL) => {
+      console.log("test")
       const newUrl = currentUrl.origin + "/register";
       await Browser.open({
         url: `${newUrl}?code=${code}`,
@@ -31,8 +36,9 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
     if (goToUrl) {
       openInBrowser(currentUrl);
     } else {
-      checkCode(code);
-      console.log(errorCode);
+
+      checkCode(code, setShowError);
+      
     }
   };
 
@@ -40,9 +46,7 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
     const inputElements = inputRefs.current;
     const keydownHandlers: ((e: KeyboardEvent) => void)[] = [];
     const inputHandlers: ((e: Event) => void)[] = [];
-    if (errorCode) {
-      console.log(errorCode);
-    }
+
     renderCount.current = renderCount.current + 1;
     console.log("renderCount", renderCount.current);
 
@@ -83,6 +87,14 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
         }
       });
     }
+    if (errorCode) {
+      console.log("errorCode", errorCode);
+      inputRefs.current.forEach((input) => {
+        if (input) {
+          input.value = "";
+        }
+      });
+    }
 
     return () => {
       inputElements.forEach((ele, index) => {
@@ -90,11 +102,11 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
         ele?.removeEventListener("input", inputHandlers[index]);
       });
     };
-  }, [errorCode]);
+  }, [errorCode, submitCount]);
 
   return {
     inputRefs,
     onSubmit,
     errorCode,
-};
+  };
 };

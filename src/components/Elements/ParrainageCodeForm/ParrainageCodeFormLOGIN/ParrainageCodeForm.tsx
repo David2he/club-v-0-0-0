@@ -5,10 +5,11 @@ import "../ParainageCode.scss";
 import { ParraingeFormProps } from "../../../../types/ComponentsElementsTypes";
 import { useCodeParrainageHandler } from "../../../../utils/useCodeParrainageHandler";
 
-export const ParraingageCodeForm = ({
+export const ParrainageCodeForm = ({
   goToUrl,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-  const { inputRefs, onSubmit, errorCode } = useCodeParrainageHandler(goToUrl);
+  console.log(goToUrl, "goToUrl")
+  const { inputRefs, onSubmit } = useCodeParrainageHandler(goToUrl);
 
   const setRef = (el: any, index: number) => {
     inputRefs.current[index] = el;
@@ -31,9 +32,6 @@ export const ParraingageCodeForm = ({
           ))}
         </div>
         <input type="submit" value="Checker le code" className="submitButton" />
-
-        {errorCode && <p className="error">{errorCode}</p>}
-        <div key={errorCode}>...</div>
       </form>
     </div>
   );

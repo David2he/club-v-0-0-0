@@ -1,6 +1,6 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
-import { ParraingageCodeForm } from "../../components/Elements/ParrainageCodeForm/ParrainageCodeFormREGISTER/ParrainageCodeForm";
+import { ParrainageCodeForm } from "../../components/Elements/ParrainageCodeForm/ParrainageCodeFormREGISTER/ParrainageCodeForm";
 import "./Register.scss";
 const Register: React.FC = () => {
   return (
@@ -9,7 +9,7 @@ const Register: React.FC = () => {
         <Header />
       </div>
       <div className="content">
-        <ParraingageCodeForm />
+        <ParrainageCodeForm />
       </div>
     </IonPage>
   );

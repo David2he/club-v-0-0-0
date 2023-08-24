@@ -11,3 +11,8 @@ export type InputProps = {
 export type ParraingeFormProps = {
   goToUrl?: string;
 }
+
+export type LogPromptProps ={
+  typeLog: string;
+  message: string;
+}
