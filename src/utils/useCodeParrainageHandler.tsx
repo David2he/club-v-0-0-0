@@ -1,13 +1,14 @@
 import { useRef, useEffect } from "react";
 import { Browser } from "@capacitor/browser";
+import { useCheckCodeParrainage } from "./useCheckCodeParrainage";
 
 export const useCodeParrainageHandler = (goToUrl?: string) => {
   const currentUrl = new URL(window.location.href);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const codeFromUrl = currentUrl.searchParams.get("code");
-  codeFromUrl ? console.log(codeFromUrl) : null;
-
-  if (codeFromUrl) {
+  const { isLoading, isCodeValid, error, checkCode } = useCheckCodeParrainage();
+  const renderCount = useRef(0);
+  if (codeFromUrl && renderCount.current === 0) {
     const codeArray = codeFromUrl.split("");
     inputRefs.current.forEach((input, index) => {
       if (input && codeArray[index]) {
@@ -16,10 +17,28 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
     });
   }
 
+  const onSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const code = inputRefs.current.map((input) => input?.value).join("");
+    const openInBrowser = async (currentUrl: URL) => {
+      const newUrl = currentUrl.origin + "/register";
+      await Browser.open({
+        url: `${newUrl}?code=${code}`,
+      });
+    };
+
+    /// ICI ON CHECK LE CODE PARRAINAGE
+
+    goToUrl ? openInBrowser(currentUrl) : checkCode(code);
+  };
+
   useEffect(() => {
     const inputElements = inputRefs.current;
     const keydownHandlers: ((e: KeyboardEvent) => void)[] = [];
     const inputHandlers: ((e: Event) => void)[] = [];
+
+    renderCount.current = renderCount.current + 1;
+    console.log("renderCount", renderCount.current);
 
     inputElements.forEach((ele, index) => {
       if (!ele) return;
@@ -65,20 +84,7 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
         ele?.removeEventListener("input", inputHandlers[index]);
       });
     };
-  }, [])
-
-  const onSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const code = inputRefs.current.map((input) => input?.value).join("");
-
-    const openInBrowser = async (currentUrl: URL) => {
-      const newUrl = currentUrl.origin + "/register";
-      await Browser.open({
-        url: `${newUrl}?code=${code}`,
-      });
-    };
-    goToUrl ? openInBrowser(currentUrl) : null;
-  };
+  }, []);
 
   return {
     inputRefs,
