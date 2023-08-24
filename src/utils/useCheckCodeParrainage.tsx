@@ -4,9 +4,9 @@ import { post } from "../services/api";
 export const useCheckCodeParrainage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isCodeValid, setIsCodeValid] = useState(false);
-  const [error, setError] = useState(String);
-
-  const checkCode = async (code : string) => {
+  const [errorCode, setErrorCode] = useState("");
+  const currentUrl = new URL(window.location.href);
+  const checkCode = async (code: string) => {
     setIsLoading(true);
     try {
       const response = await post("https://jsonplaceholder.typicode.com/posts", {
@@ -14,19 +14,27 @@ export const useCheckCodeParrainage = () => {
           code: code,
         }),
       });
-      console.log(response.id)
-      
-      if (response.id == 101) {
+
+      /// WHEN API IS READY
+      // if (response.id == 101) {
+      //   setIsCodeValid(true);
+      //   window.location.href = currentUrl.origin + currentUrl.pathname;
+      // } else {
+      //   setIsCodeValid(false);
+      //   setError("Le code de parrainage n'est pas valide.");
+      // }
+
+      /// TODO REMOVE THIS
+      if (code === "123456") {
         setIsCodeValid(true);
-        // Vous pouvez également rediriger l'utilisateur ici si nécessaire.
+        window.location.href = currentUrl.origin + currentUrl.pathname;
       } else {
         setIsCodeValid(false);
-        setError("Le code de parrainage n'est pas valide.");
+        setErrorCode("Le code de parrainage n'est pas valide.");
       }
     } catch (err) {
-      setError("Une erreur est survenue lors de la vérification du code.");
+      setErrorCode("Une erreur est survenue lors de la vérification du code.");
     } finally {
-
       setIsLoading(false);
     }
   };
@@ -34,7 +42,7 @@ export const useCheckCodeParrainage = () => {
   return {
     isLoading,
     isCodeValid,
-    error,
+    errorCode,
     checkCode,
   };
 };

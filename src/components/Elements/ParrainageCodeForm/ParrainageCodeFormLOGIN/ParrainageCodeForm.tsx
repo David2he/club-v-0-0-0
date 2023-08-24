@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Browser } from "@capacitor/browser";
 import style from "./ParrainageCodeForm.module.scss";
 import "../ParainageCode.scss";
@@ -8,12 +8,12 @@ import { useCodeParrainageHandler } from "../../../../utils/useCodeParrainageHan
 export const ParraingageCodeForm = ({
   goToUrl,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-
-  const { inputRefs, onSubmit } = useCodeParrainageHandler(goToUrl);
+  const { inputRefs, onSubmit, errorCode } = useCodeParrainageHandler(goToUrl);
 
   const setRef = (el: any, index: number) => {
     inputRefs.current[index] = el;
   };
+
   return (
     <div>
       <form onSubmit={onSubmit} className="formParrainage">
@@ -31,6 +31,9 @@ export const ParraingageCodeForm = ({
           ))}
         </div>
         <input type="submit" value="Checker le code" className="submitButton" />
+
+        {errorCode && <p className="error">{errorCode}</p>}
+        <div key={errorCode}>...</div>
       </form>
     </div>
   );

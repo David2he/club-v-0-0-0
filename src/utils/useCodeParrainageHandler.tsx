@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Browser } from "@capacitor/browser";
 import { useCheckCodeParrainage } from "./useCheckCodeParrainage";
 
@@ -6,7 +6,8 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
   const currentUrl = new URL(window.location.href);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const codeFromUrl = currentUrl.searchParams.get("code");
-  const { isLoading, isCodeValid, error, checkCode } = useCheckCodeParrainage();
+
+  const { isLoading, isCodeValid, errorCode, checkCode } = useCheckCodeParrainage();
   const renderCount = useRef(0);
   if (codeFromUrl && renderCount.current === 0) {
     const codeArray = codeFromUrl.split("");
@@ -27,16 +28,21 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
       });
     };
 
-    /// ICI ON CHECK LE CODE PARRAINAGE
-
-    goToUrl ? openInBrowser(currentUrl) : checkCode(code);
+    if (goToUrl) {
+      openInBrowser(currentUrl);
+    } else {
+      checkCode(code);
+      console.log(errorCode);
+    }
   };
 
   useEffect(() => {
     const inputElements = inputRefs.current;
     const keydownHandlers: ((e: KeyboardEvent) => void)[] = [];
     const inputHandlers: ((e: Event) => void)[] = [];
-
+    if (errorCode) {
+      console.log(errorCode);
+    }
     renderCount.current = renderCount.current + 1;
     console.log("renderCount", renderCount.current);
 
@@ -84,10 +90,11 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
         ele?.removeEventListener("input", inputHandlers[index]);
       });
     };
-  }, []);
+  }, [errorCode]);
 
   return {
     inputRefs,
     onSubmit,
-  };
+    errorCode,
+};
 };
