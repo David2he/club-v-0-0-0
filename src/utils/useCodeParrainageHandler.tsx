@@ -2,7 +2,7 @@ import { useRef, useEffect, useState } from "react";
 import { Browser } from "@capacitor/browser";
 import { useCheckCodeParrainage } from "./useCheckCodeParrainage";
 
-export const useCodeParrainageHandler = (goToUrl?: string, showError? : any, setShowError? : any, ) => {
+export const useCodeParrainageHandler = (goToUrl?: string, showError?: any, setShowError?: any) => {
   const currentUrl = new URL(window.location.href);
   const [submitCount, setSubmitCount] = useState(0);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -20,13 +20,12 @@ export const useCodeParrainageHandler = (goToUrl?: string, showError? : any, set
   }
 
   const onSubmit = (e: React.FormEvent) => {
-    console.log(goToUrl, 'goToUrl')
+    console.log(goToUrl, "goToUrl");
 
     e.preventDefault();
     setSubmitCount((prevCount) => prevCount + 1);
     const code = inputRefs.current.map((input) => input?.value).join("");
     const openInBrowser = async (currentUrl: URL) => {
-      console.log("test")
       const newUrl = currentUrl.origin + "/register";
       await Browser.open({
         url: `${newUrl}?code=${code}`,
@@ -36,9 +35,7 @@ export const useCodeParrainageHandler = (goToUrl?: string, showError? : any, set
     if (goToUrl) {
       openInBrowser(currentUrl);
     } else {
-
       checkCode(code, setShowError);
-      
     }
   };
 

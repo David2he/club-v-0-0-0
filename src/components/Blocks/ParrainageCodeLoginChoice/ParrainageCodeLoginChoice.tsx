@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import style from "./ParrainageCodeLoginChoice.module.scss";
 import { Browser } from "@capacitor/browser";
-import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeFormLOGIN/ParrainageCodeForm";
+import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
 
 export const ParrainageCodeLoginChoice = () => {
   
@@ -15,7 +15,7 @@ export const ParrainageCodeLoginChoice = () => {
       </div>
       <p>Code de parrainage</p>
       <div>
-        <ParrainageCodeForm goToUrl="register" />
+        <ParrainageCodeForm goToUrl="register" loginType="register"/>
       </div>
     </div>
   );

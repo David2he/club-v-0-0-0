@@ -10,6 +10,7 @@ export type InputProps = {
 
 export type ParraingeFormProps = {
   goToUrl?: string;
+  loginType?: string;
 }
 
 export type LogPromptProps ={
