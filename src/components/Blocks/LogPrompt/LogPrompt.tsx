@@ -3,6 +3,8 @@ import { LogPromptProps } from "../../../types/ComponentsElementsTypes";
 import { useState } from "react";
 
 export const LogPrompt: React.FC<LogPromptProps> = ({ typeLog, message }) => {
+  console.log(typeLog + "||" +message);
+  
   const [showLog, setShowLog] = useState<boolean>(true);
 
   const closeLog = () => {
@@ -65,7 +67,7 @@ export const LogPrompt: React.FC<LogPromptProps> = ({ typeLog, message }) => {
   };
   return (
     <div className={style.logContainer}>
-      {typeLog === "Error" ? errorMessage() : succesMessage()}
+      {typeLog === "error" ? errorMessage() : succesMessage()}
     </div>
   );
 };

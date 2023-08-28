@@ -8,7 +8,7 @@ export const useCheckCodeParrainage = () => {
   const currentUrl = new URL(window.location.href);
 
   const checkCode = async (code: string, setShowError: any) => {
-    console.log("processing")
+    console.log("processing");
     setIsLoading(true);
     try {
       const response = await post("https://jsonplaceholder.typicode.com/posts", {
@@ -29,15 +29,20 @@ export const useCheckCodeParrainage = () => {
       /// TODO REMOVE THIS
       if (code === "123456") {
         setIsCodeValid(true);
-        setShowError((prevErrors: string[]) => [...prevErrors, "c'est bon."]);
+        setShowError((prevErrors: Array<[string, string]>) => [
+          ...prevErrors,
+          ["success", "le code parrainage est valide"],
+        ]);
         // window.location.href = currentUrl.origin + currentUrl.pathname;
       } else {
         setIsCodeValid(false);
-       setShowError((prevErrors: string[]) => [...prevErrors, "Le code de parrainage n'est pas valide."]);
+
         setErrorCode("Le code de parrainage n'est pas valide.");
+        setShowError((prevErrors: Array<[string, string]>) => [...prevErrors,["error", "Le code de parrainage n'est pas valide."],]);
       }
     } catch (err) {
       setErrorCode("Une erreur est survenue lors de la vérification du code.");
+      setShowError((prevErrors: Array<[string, string]>) => [...prevErrors, ["error", errorCode]]);
     } finally {
       setIsLoading(false);
     }

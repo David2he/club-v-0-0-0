@@ -8,7 +8,7 @@ export const ParrainageCodeForm = ({
   goToUrl,
   loginType,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-  const [showError, setShowError] = useState<string[]>([]);
+  const [showError, setShowError] = useState<Array<[string, string]>>([]);
   const { inputRefs, onSubmit } = useCodeParrainageHandler(goToUrl, showError, setShowError);
 
   const setRef = (el: any, index: number) => {
@@ -60,8 +60,8 @@ export const ParrainageCodeForm = ({
           </div>
           <input type="submit" value="Checker le code" className="submitButton" />
         </form>
-        {showError.map((error, index) => (
-          <LogPrompt key={index} typeLog="Error" message={error} />
+        {showError.map(([errorType, errorMessage], index) => (
+          <LogPrompt key={index} typeLog={errorType} message={errorMessage} />
         ))}
       </>
     );
