@@ -10,9 +10,11 @@ export const get = async (url: string): Promise<any> => {
   }
 };
 
-export const post = async (url: string, body: object): Promise<any> => {
+export const post = async (url: string, options: any): Promise<any> => {
   try {
-    const response = await axios.post(url, body);
+    const response = await axios.post(url, options.body, {
+      headers: options.headers
+    });
     return response.data;
   } catch (error) {
     console.error("Erreur lors de l'envoi des données :", error);

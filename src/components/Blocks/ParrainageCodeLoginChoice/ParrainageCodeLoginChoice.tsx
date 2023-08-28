@@ -13,7 +13,7 @@ export const ParrainageCodeLoginChoice = () => {
         <p>OU</p>
         <span></span>
       </div>
-      <p>Code de parrainage</p>
+      <p>J'ai un code de parrainage</p>
       <div>
         <ParrainageCodeForm goToUrl="register" loginType="register"/>
       </div>
