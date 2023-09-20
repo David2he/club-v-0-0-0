@@ -46,17 +46,17 @@ export const FormLogin = () => {
     return (
         <>
             <form
-                id='container'
+                id="container"
                 className={style.formContainer}
                 onSubmit={handleSubmit}
             >
                 <div className={style.inputContainer}>
                     <Input
-                        iconURL={"assets/inputs-icon/mail.svg"}
+                        iconURL={"assets/inputs-icon/email.svg"}
                         altIcon={"iconMail"}
                         placeholder={"Mail"}
                         labelType={"email"}
-                        name='email'
+                        name="email"
                         value={formData.email}
                         onChange={handleChange}
                     />
@@ -65,19 +65,19 @@ export const FormLogin = () => {
                         altIcon={"iconLock"}
                         placeholder={"Mot de passe"}
                         labelType={"password"}
-                        name='password'
+                        name="password"
                         value={formData.password}
                         onChange={handleChange}
                     />
                 </div>
-                <a href='#' className={style.link}>
+                <a href="#" className={style.link}>
                     mot de passe oublié ?
                 </a>
                 {responseData.email}
 
                 <input
-                    type='submit'
-                    value='Se connecter'
+                    type="submit"
+                    value="Se connecter"
                     className={style.submitButton}
                 ></input>
             </form>

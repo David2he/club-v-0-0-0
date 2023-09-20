@@ -1,10 +1,13 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import style from "./FormRegister.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import { registerFormDataStateProps } from "../../../types/ComponentsElementsTypes";
+import { Toast } from "../Toast/Toast";
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
+
+    const [showToast, setShowToast] = useState<Array<[string, string]>>([]);
     const [formData, setFormData] = useState<registerFormDataStateProps>({
         email: "",
         password: "",
@@ -13,15 +16,32 @@ export const FormRegister = () => {
         name: "",
         phone: "",
     });
+
     const handleFormRegister = () => {
-        console.log(step);
-        console.log(formData);
-        setStep((prevState) => prevState + 1);
+        if (formData.password.length < 6) {
+            return setShowToast((prevErrors: Array<[string, string]>) => [
+                ...prevErrors,
+                [
+                    "error",
+                    "le mot de passe doit au moins contenir 6 caractères",
+                ],
+            ]);
+        }
+        if (formData.password !== formData.confirmPassword) {
+            return setShowToast((prevErrors: Array<[string, string]>) => [
+                ...prevErrors,
+                [
+                    "error",
+                    "les mot de passe ne sont pas identiques, veuillez réessayer",
+                ],
+            ]);
+        } else {
+            setStep((prevState) => prevState + 1);
+        }
     };
 
     const handleCorrectCheckForm = (value: string, correctCat: string) => {
         if (correctCat === "type") {
-            // Utilisez === pour la comparaison
             if (value.includes("Password") || value.includes("password")) {
                 console.log("allez");
                 return "password";
@@ -30,8 +50,12 @@ export const FormRegister = () => {
             }
         }
         if (correctCat === "icon") {
-            if (value.includes("password")) {
+            if (value.includes("Password") || value.includes("password")) {
+                console.log("Value:", value, "CorrectCat:", correctCat);
+                console.log("Nice");
                 return "password";
+            } else if (value.includes("name") || value.includes("fName")) {
+                return "identity";
             } else {
                 return value;
             }
@@ -46,7 +70,7 @@ export const FormRegister = () => {
                     altIcon={"iconMail"}
                     placeholder={"Mail"}
                     labelType={"email"}
-                    name='email'
+                    name="email"
                     value={formData.email}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -60,7 +84,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Mot de passe"}
                     labelType={"password"}
-                    name='password'
+                    name="password"
                     value={formData.password}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -74,7 +98,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Confirmer le mot de passe"}
                     labelType={"password"}
-                    name='confirmPassword'
+                    name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -96,7 +120,7 @@ export const FormRegister = () => {
                     altIcon={"iconMail"}
                     placeholder={"Nom"}
                     labelType={"fName"}
-                    name='fName'
+                    name="fName"
                     value={formData.fName}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -110,7 +134,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Prénom"}
                     labelType={"name"}
-                    name='name'
+                    name="name"
                     value={formData.name}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -123,6 +147,7 @@ export const FormRegister = () => {
         );
     };
 
+    // STEP 2
     const phoneForm = () => {
         return (
             <>
@@ -131,7 +156,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}
                     labelType={"phone"}
-                    name='phone'
+                    name="phone"
                     value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -144,7 +169,8 @@ export const FormRegister = () => {
         );
     };
 
-    const checkForm = () => {
+    // STEP 3
+    const lastCheckForm = () => {
         return (
             <>
                 {Object.entries(formData).map(([key, value]) => (
@@ -167,8 +193,6 @@ export const FormRegister = () => {
                                 }))
                             }
                         />
-                        <p>{handleCorrectCheckForm(key, "type")}</p>
-                        <p>key est égale a {key}</p>
                     </>
                 ))}
             </>
@@ -178,6 +202,9 @@ export const FormRegister = () => {
     return (
         <div className={style.formRegisterContainer}>
             <div className={style.inputContainer}>
+                <div className={style.loadingBar}>
+                    <span style={{ transform: `scaleX(${step * 33}%)` }}></span>
+                </div>
                 {step === 0
                     ? emailPasswordForm()
                     : step === 1
@@ -185,13 +212,22 @@ export const FormRegister = () => {
                     : step === 2
                     ? phoneForm()
                     : step === 3
-                    ? checkForm()
+                    ? lastCheckForm()
                     : null}
             </div>
             <ButtonSubmit
                 text={"suivant"}
                 callFunctionOnClick={handleFormRegister}
             />
+            <div className={style.toastContainer}>
+                {showToast.map(([toastType, toastMessage], index) => (
+                    <Toast
+                        key={index}
+                        typeLog={toastType}
+                        message={toastMessage}
+                    />
+                ))}
+            </div>
         </div>
     );
 };

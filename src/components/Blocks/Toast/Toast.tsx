@@ -3,8 +3,6 @@ import { LogPromptProps } from "../../../types/ComponentsElementsTypes";
 import { useState } from "react";
 
 export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
-    console.log(typeLog + "||" + message);
-
     const [showLog, setShowLog] = useState<boolean>(true);
 
     const closeLog = () => {
@@ -28,15 +26,15 @@ export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
                     <div className={style.upLoader}></div>
                     <div className={style.titleContainer}>
                         <img
-                            src='/assets/iconModalLog/Error.svg'
-                            alt='succes'
+                            src="/assets/iconModalLog/Error.svg"
+                            alt="succes"
                         />
                         <p className={style.title}>{typeLog}</p>
                     </div>
                     <p>{message}</p>
                     <img
-                        src='/assets/iconModalLog/closeError.svg'
-                        alt='succes'
+                        src="/assets/iconModalLog/closeError.svg"
+                        alt="succes"
                         className={style.closeIcon}
                         onClick={() => closeLog()}
                     />
@@ -55,15 +53,15 @@ export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
                     <div className={style.upLoader}></div>
                     <div className={style.titleContainer}>
                         <img
-                            src='/assets/iconModalLog/Success.svg'
-                            alt='succes'
+                            src="/assets/iconModalLog/Success.svg"
+                            alt="succes"
                         />
                         <p className={style.title}>{typeLog}</p>
                     </div>
                     <p>{message}</p>
                     <img
-                        src='/assets/iconModalLog/closeSuccess.svg'
-                        alt='succes'
+                        src="/assets/iconModalLog/closeSuccess.svg"
+                        alt="succes"
                         className={style.closeIcon}
                         onClick={() => closeLog()}
                     />

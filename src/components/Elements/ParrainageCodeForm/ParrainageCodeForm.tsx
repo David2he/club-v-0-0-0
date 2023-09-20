@@ -22,24 +22,24 @@ export const ParrainageCodeForm = ({
     const loginRender = () => {
         return (
             <>
-                <form onSubmit={onSubmit} className='formParrainage'>
-                    <div className='inputCodeContainer'>
+                <form onSubmit={onSubmit} className="formParrainage">
+                    <div className="inputCodeContainer">
                         {[...Array(6)].map((_, index) => (
                             <input
                                 key={index}
-                                name='code'
-                                placeholder='*'
+                                name="code"
+                                placeholder="*"
                                 required
                                 maxLength={1}
-                                className='code-input'
+                                className="code-input"
                                 ref={(el) => setRef(el, index)}
                             />
                         ))}
                     </div>
                     <input
-                        type='submit'
-                        value='Checker le code'
-                        className='submitButton'
+                        type="submit"
+                        value="Checker le code"
+                        className="submitButton"
                     />
                 </form>
             </>
@@ -51,19 +51,19 @@ export const ParrainageCodeForm = ({
             <>
                 <form
                     onSubmit={onSubmit}
-                    className='formContainer formParrainage'
+                    className="formContainer formParrainage"
                 >
-                    <div className='boxFormRegisterContainer'>
+                    <div className="boxFormRegisterContainer">
                         <p>Code parrainage</p>
-                        <div className='inputCodeContainer'>
+                        <div className="inputCodeContainer">
                             {[...Array(6)].map((_, index) => (
                                 <input
                                     key={index}
-                                    name='code'
-                                    placeholder='*'
+                                    name="code"
+                                    placeholder="*"
                                     required
                                     maxLength={1}
-                                    className='code-input'
+                                    className="code-input"
                                     ref={(el) =>
                                         (inputRefs.current[index] = el)
                                     }
@@ -72,9 +72,9 @@ export const ParrainageCodeForm = ({
                         </div>
                     </div>
                     <input
-                        type='submit'
-                        value='Checker le code'
-                        className='submitButton'
+                        type="submit"
+                        value="Checker le code"
+                        className="submitButton"
                     />
                 </form>
                 {showToast.map(([toastType, toastMessage], index) => (
