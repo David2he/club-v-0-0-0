@@ -6,11 +6,19 @@ import { FormRegister } from "../../components/Blocks/FormRegister/FormRegister"
 import "./RegisterForm.scss";
 const RegisterForm: React.FC = () => {
     return (
+<<<<<<< HEAD
         <IonPage id="main-content" className="container">
             <div className="headerContainer">
                 <Header />
             </div>
             <div className="content">
+=======
+        <IonPage id='main-content' className='container'>
+            <div className='headerContainer'>
+                <Header />
+            </div>
+            <div className='content'>
+>>>>>>> formRegister
                 <FormRegister />
             </div>
         </IonPage>
