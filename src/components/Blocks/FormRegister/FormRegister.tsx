@@ -4,6 +4,7 @@ import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import { registerFormDataStateProps } from "../../../types/ComponentsElementsTypes";
 import { Toast } from "../Toast/Toast";
+// import { post } from "../../../services/api";
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
 
@@ -16,6 +17,35 @@ export const FormRegister = () => {
         name: "",
         phone: "",
     });
+
+
+
+    const postRegisterForm = async () => {
+        try {
+            const response = await fetch("http://localhost:8000/api/users", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    email: formData.email,
+                    password: formData.password,
+                    userInfo: {
+                        firstName: formData.fName,
+                        lastName: formData.name,
+                        birthday: "2023-08-24T08:41:26.978Z",
+                        phoneNumber: formData.phone,
+                    },
+                }),
+            });
+
+            const data = await response.json();
+
+            console.log(response);
+        } catch (error) {
+            console.error("Erreur lors de l'enregistrement :", error);
+        }
+    };
 
     const handleFormRegister = () => {
         if (formData.password.length < 6) {
@@ -35,15 +65,21 @@ export const FormRegister = () => {
                     "les mot de passe ne sont pas identiques, veuillez réessayer",
                 ],
             ]);
-        } else {
-            setStep((prevState) => prevState + 1);
         }
+        if (step === 3) {
+            postRegisterForm();
+        }
+        if (step <= 3) {
+            setStep((prevState) => prevState + 1);
+        } else {
+            setStep(3);
+        }
+        console.log(step);
     };
 
     const handleCorrectCheckForm = (value: string, correctCat: string) => {
         if (correctCat === "type") {
             if (value.includes("Password") || value.includes("password")) {
-                console.log("allez");
                 return "password";
             } else {
                 return value;
@@ -52,7 +88,6 @@ export const FormRegister = () => {
         if (correctCat === "icon") {
             if (value.includes("Password") || value.includes("password")) {
                 console.log("Value:", value, "CorrectCat:", correctCat);
-                console.log("Nice");
                 return "password";
             } else if (value.includes("name") || value.includes("fName")) {
                 return "identity";
@@ -61,6 +96,7 @@ export const FormRegister = () => {
             }
         }
     };
+
     // STEP 0
     const emailPasswordForm = () => {
         return (
@@ -174,9 +210,8 @@ export const FormRegister = () => {
         return (
             <>
                 {Object.entries(formData).map(([key, value]) => (
-                    <>
+                    <div key={key}>
                         <Input
-                            key={key}
                             iconURL={`assets/inputs-icon/${handleCorrectCheckForm(
                                 key,
                                 "icon"
@@ -193,7 +228,7 @@ export const FormRegister = () => {
                                 }))
                             }
                         />
-                    </>
+                    </div>
                 ))}
             </>
         );
@@ -211,9 +246,7 @@ export const FormRegister = () => {
                     ? nameForm()
                     : step === 2
                     ? phoneForm()
-                    : step === 3
-                    ? lastCheckForm()
-                    : null}
+                    : lastCheckForm()}
             </div>
             <ButtonSubmit
                 text={"suivant"}
