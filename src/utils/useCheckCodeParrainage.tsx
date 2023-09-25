@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { post } from "../services/api";
+import { handlePostData } from "../services/api";
 
 export const useCheckCodeParrainage = () => {
     const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +11,7 @@ export const useCheckCodeParrainage = () => {
         console.log("processing");
         setIsLoading(true);
         try {
-            const response = await post(
+            const response = await handlePostData(
                 "https://jsonplaceholder.typicode.com/posts",
                 {
                     body: JSON.stringify({

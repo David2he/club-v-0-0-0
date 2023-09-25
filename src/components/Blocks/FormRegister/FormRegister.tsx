@@ -1,10 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import style from "./FormRegister.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
-import { registerFormDataStateProps } from "../../../types/ComponentsElementsTypes";
+import {
+    registerFormDataStateProps,
+    registerFormDataToSendType,
+} from "../../../types/ComponentsElementsTypes";
 import { Toast } from "../Toast/Toast";
-// import { post } from "../../../services/api";
+import { handlePostData } from "../../../services/api";
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
 
@@ -12,34 +15,33 @@ export const FormRegister = () => {
     const [formData, setFormData] = useState<registerFormDataStateProps>({
         email: "",
         password: "",
-        confirmPassword: "",
         fName: "",
         name: "",
         phone: "",
     });
 
-
-
     const postRegisterForm = async () => {
         try {
-            const response = await fetch("http://localhost:8000/api/users", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
+            const dataToSend: registerFormDataToSendType = {
+                email: formData.email,
+                password: formData.password,
+                userInfo: {
+                    firstName: formData.fName,
+                    lastName: formData.name,
+                    birthday: "2023-08-24T08:41:26.978Z",
+                    phoneNumber: formData.phone,
                 },
-                body: JSON.stringify({
-                    email: formData.email,
-                    password: formData.password,
-                    userInfo: {
-                        firstName: formData.fName,
-                        lastName: formData.name,
-                        birthday: "2023-08-24T08:41:26.978Z",
-                        phoneNumber: formData.phone,
-                    },
-                }),
-            });
+            };
 
-            const data = await response.json();
+            const response = await handlePostData(
+                "http://localhost:8000/api/users",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(dataToSend),
+                }
+            );
 
             console.log(response);
         } catch (error) {
@@ -57,24 +59,17 @@ export const FormRegister = () => {
                 ],
             ]);
         }
-        if (formData.password !== formData.confirmPassword) {
-            return setShowToast((prevErrors: Array<[string, string]>) => [
-                ...prevErrors,
-                [
-                    "error",
-                    "les mot de passe ne sont pas identiques, veuillez réessayer",
-                ],
-            ]);
-        }
+        
+
         if (step === 3) {
             postRegisterForm();
         }
-        if (step <= 3) {
+        if (step < 3) {
             setStep((prevState) => prevState + 1);
         } else {
+            console.log(step);
             setStep(3);
         }
-        console.log(step);
     };
 
     const handleCorrectCheckForm = (value: string, correctCat: string) => {
@@ -87,7 +82,6 @@ export const FormRegister = () => {
         }
         if (correctCat === "icon") {
             if (value.includes("Password") || value.includes("password")) {
-                console.log("Value:", value, "CorrectCat:", correctCat);
                 return "password";
             } else if (value.includes("name") || value.includes("fName")) {
                 return "identity";
@@ -122,20 +116,6 @@ export const FormRegister = () => {
                     labelType={"password"}
                     name="password"
                     value={formData.password}
-                    onChange={(e) =>
-                        setFormData((prevState) => ({
-                            ...prevState,
-                            [e.target.name]: e.target.value,
-                        }))
-                    }
-                />
-                <Input
-                    iconURL={"assets/inputs-icon/password.svg"}
-                    altIcon={"iconLock"}
-                    placeholder={"Confirmer le mot de passe"}
-                    labelType={"password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
                     onChange={(e) =>
                         setFormData((prevState) => ({
                             ...prevState,

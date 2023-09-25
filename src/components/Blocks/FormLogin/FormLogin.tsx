@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { Input } from "../../Elements/Input/Input";
-import { post } from "../../../services/api";
+import { handlePostData } from "../../../services/api";
+import { loginFormDataToSendType } from "../../../types/ComponentsElementsTypes";
 import style from "./FormLogin.module.scss";
 
 export const FormLogin = () => {
@@ -20,22 +21,28 @@ export const FormLogin = () => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(formData);
+
         try {
-            const response = await post("http://localhost:8000/api/login", {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: formData.email,
-                    password: formData.password,
-                }),
-            });
-            setResponseData((prevData) => ({
-                ...prevData,
+            const dataToSend: loginFormDataToSendType = {
+                username: formData.email,
+                password: formData.password,
+            };
+
+            const response = await handlePostData(
+                "http://localhost:8000/api/login",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(dataToSend),
+                }
+            );
+
+            setResponseData({
                 email: formData.email,
                 password: formData.password,
-            }));
+            });
+
             console.log(response);
             console.log("Données envoyées !");
         } catch (error) {

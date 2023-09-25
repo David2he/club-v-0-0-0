@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
     const [showLog, setShowLog] = useState<boolean>(true);
-    
+
     const closeLog = () => {
         setShowLog(false);
     };

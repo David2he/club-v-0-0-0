@@ -28,8 +28,24 @@ export type LogPromptProps = {
 export type registerFormDataStateProps = {
     email: string;
     password: string;
-    confirmPassword: string;
+
     fName: string;
     name: string;
     phone: string;
+};
+
+export type registerFormDataToSendType = {
+    email: string;
+    password: string;
+    userInfo: {
+        firstName: string;
+        lastName: string;
+        birthday: string;
+        phoneNumber: string;
+    };
+};
+
+export type loginFormDataToSendType = {
+    username: string;
+    password: string;
 };
