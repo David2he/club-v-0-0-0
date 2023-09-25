@@ -65,7 +65,9 @@ export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
     };
     return (
         <div className={style.logContainer}>
-            {typeLog === "error" ? errorMessage() : succesMessage()}
+            {typeLog.length > 1 &&
+                message.length > 1 &&
+                (typeLog === "error" ? errorMessage() : succesMessage())}
         </div>
     );
 };

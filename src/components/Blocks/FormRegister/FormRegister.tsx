@@ -11,9 +11,7 @@ import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
-    const [testToast, setTestToast] = useState<toastType>({ type: "", message: "", key: 0 });
-
-    const [showToast, setShowToast] = useState<Array<[string, string]>>([]);
+    const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
         email: "",
         password: "",
@@ -52,7 +50,7 @@ export const FormRegister = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
         if (!emailRegex.test(formData.email)) {
-            setTestToast({
+            setshowToast({
                 type: "error",
                 message: "L'adresse e-mail n'est pas valide",
                 key: Date.now(),
@@ -60,7 +58,7 @@ export const FormRegister = () => {
             return;
         }
         if (formData.password.length < 6) {
-            setTestToast({
+            setshowToast({
                 type: "error",
                 message: "Le mot de passe doit contenir 6 caractères",
                 key: Date.now(),
@@ -236,7 +234,7 @@ export const FormRegister = () => {
             </div>
             <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
             <div className={style.toastContainer}>
-                <Toast typeLog={testToast.type} message={testToast.message} key={testToast.key} />
+                <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
             </div>
         </div>
     );

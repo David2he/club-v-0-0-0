@@ -28,15 +28,12 @@ export const FormLogin = () => {
                 password: formData.password,
             };
 
-            const response = await handlePostData(
-                "http://localhost:8000/api/login",
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(dataToSend),
-                }
-            );
+            const response = await handlePostData("http://localhost:8000/api/login", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dataToSend),
+            });
 
             setResponseData({
                 email: formData.email,
@@ -52,11 +49,7 @@ export const FormLogin = () => {
 
     return (
         <>
-            <form
-                id="container"
-                className={style.formContainer}
-                onSubmit={handleSubmit}
-            >
+            <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
                 <div className={style.inputContainer}>
                     <Input
                         iconURL={"assets/inputs-icon/email.svg"}
@@ -80,13 +73,7 @@ export const FormLogin = () => {
                 <a href="#" className={style.link}>
                     mot de passe oublié ?
                 </a>
-                {responseData.email}
-
-                <input
-                    type="submit"
-                    value="Se connecter"
-                    className={style.submitButton}
-                ></input>
+                <input type="submit" value="Se connecter" className={style.submitButton}></input>
             </form>
         </>
     );

@@ -4,21 +4,17 @@ import { handlePostData } from "../services/api";
 export const useCheckCodeParrainage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isCodeValid, setIsCodeValid] = useState(false);
-    const [errorCode, setErrorCode] = useState("");
     const currentUrl = new URL(window.location.href);
 
     const checkCode = async (code: string, setShowToast: any) => {
         console.log("processing");
         setIsLoading(true);
         try {
-            const response = await handlePostData(
-                "https://jsonplaceholder.typicode.com/posts",
-                {
-                    body: JSON.stringify({
-                        code: code,
-                    }),
-                }
-            );
+            const response = await handlePostData("https://jsonplaceholder.typicode.com/posts", {
+                body: JSON.stringify({
+                    code: code,
+                }),
+            });
 
             //TODO ADD CALL API
             /// WHEN API IS READY
@@ -33,28 +29,26 @@ export const useCheckCodeParrainage = () => {
             /// TODO REMOVE THIS
             if (code === "123456") {
                 setIsCodeValid(true);
-                setShowToast((prevErrors: Array<[string, string]>) => [
-                    ...prevErrors,
-                    ["success", "le code parrainage est valide"],
-                ]);
+                setShowToast({
+                    type: "sucesss",
+                    message: "le code parrainage est valide",
+                    key: Date.now(),
+                });
                 // window.location.href = currentUrl.origin + currentUrl.pathname;
             } else {
                 setIsCodeValid(false);
-
-                setErrorCode("Le code de parrainage n'est pas valide.");
-                setShowToast((prevErrors: Array<[string, string]>) => [
-                    ...prevErrors,
-                    ["error", "Le code de parrainage n'est pas valide."],
-                ]);
+                setShowToast({
+                    type: "error",
+                    message: "Le code de parrainage n'est pas valide.",
+                    key: Date.now(),
+                });
             }
         } catch (err) {
-            setErrorCode(
-                "Une erreur est survenue lors de la vérification du code."
-            );
-            setShowToast((prevErrors: Array<[string, string]>) => [
-                ...prevErrors,
-                ["error", errorCode],
-            ]);
+            setShowToast({
+                type: "error",
+                message: "Une erreur est survenue lors de la vérification du code.",
+                key: Date.now(),
+            });
         } finally {
             setIsLoading(false);
         }
@@ -63,7 +57,7 @@ export const useCheckCodeParrainage = () => {
     return {
         isLoading,
         isCodeValid,
-        errorCode,
+
         checkCode,
     };
 };
