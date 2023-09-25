@@ -10,9 +10,7 @@ export type InputProps = {
 
 export type ButtonSubmitProps = {
     text: string;
-    callFunctionOnClick?: (
-        event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-    ) => any;
+    callFunctionOnClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any;
 };
 
 export type ParraingeFormProps = {
@@ -20,7 +18,7 @@ export type ParraingeFormProps = {
     loginType?: string;
 };
 
-export type LogPromptProps = {
+export type toastProps = {
     typeLog: string;
     message: string;
 };
@@ -32,6 +30,12 @@ export type registerFormDataStateProps = {
     fName: string;
     name: string;
     phone: string;
+};
+
+export type toastType = {
+    type: string;
+    message: string;
+    key?: number;
 };
 
 export type registerFormDataToSendType = {

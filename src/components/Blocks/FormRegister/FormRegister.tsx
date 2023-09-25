@@ -5,11 +5,13 @@ import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import {
     registerFormDataStateProps,
     registerFormDataToSendType,
+    toastType,
 } from "../../../types/ComponentsElementsTypes";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
+    const [testToast, setTestToast] = useState<toastType>({ type: "", message: "", key: 0 });
 
     const [showToast, setShowToast] = useState<Array<[string, string]>>([]);
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -33,15 +35,12 @@ export const FormRegister = () => {
                 },
             };
 
-            const response = await handlePostData(
-                "http://localhost:8000/api/users",
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(dataToSend),
-                }
-            );
+            const response = await handlePostData("http://localhost:8000/api/users", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dataToSend),
+            });
 
             console.log(response);
         } catch (error) {
@@ -50,16 +49,24 @@ export const FormRegister = () => {
     };
 
     const handleFormRegister = () => {
-        if (formData.password.length < 6) {
-            return setShowToast((prevErrors: Array<[string, string]>) => [
-                ...prevErrors,
-                [
-                    "error",
-                    "le mot de passe doit au moins contenir 6 caractères",
-                ],
-            ]);
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+        if (!emailRegex.test(formData.email)) {
+            setTestToast({
+                type: "error",
+                message: "L'adresse e-mail n'est pas valide",
+                key: Date.now(),
+            });
+            return;
         }
-        
+        if (formData.password.length < 6) {
+            setTestToast({
+                type: "error",
+                message: "Le mot de passe doit contenir 6 caractères",
+                key: Date.now(),
+            });
+            return;
+        }
 
         if (step === 3) {
             postRegisterForm();
@@ -67,7 +74,6 @@ export const FormRegister = () => {
         if (step < 3) {
             setStep((prevState) => prevState + 1);
         } else {
-            console.log(step);
             setStep(3);
         }
     };
@@ -228,18 +234,9 @@ export const FormRegister = () => {
                     ? phoneForm()
                     : lastCheckForm()}
             </div>
-            <ButtonSubmit
-                text={"suivant"}
-                callFunctionOnClick={handleFormRegister}
-            />
+            <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
             <div className={style.toastContainer}>
-                {showToast.map(([toastType, toastMessage], index) => (
-                    <Toast
-                        key={index}
-                        typeLog={toastType}
-                        message={toastMessage}
-                    />
-                ))}
+                <Toast typeLog={testToast.type} message={testToast.message} key={testToast.key} />
             </div>
         </div>
     );

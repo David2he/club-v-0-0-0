@@ -1,10 +1,10 @@
 import style from "./Toast.module.scss";
-import { LogPromptProps } from "../../../types/ComponentsElementsTypes";
+import { toastProps } from "../../../types/ComponentsElementsTypes";
 import { useState } from "react";
 
-export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
+export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
     const [showLog, setShowLog] = useState<boolean>(true);
-
+    console.log(message);
     const closeLog = () => {
         setShowLog(false);
     };
@@ -19,16 +19,13 @@ export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
         return (
             <>
                 <div
-                    className={`${style.messageContainer} ${
-                        style.errorLogContainer
-                    } ${showLog ? "" : style.closeLog}`}
+                    className={`${style.messageContainer} ${style.errorLogContainer} ${
+                        showLog ? "" : style.closeLog
+                    }`}
                 >
                     <div className={style.upLoader}></div>
                     <div className={style.titleContainer}>
-                        <img
-                            src="/assets/iconModalLog/Error.svg"
-                            alt="succes"
-                        />
+                        <img src="/assets/iconModalLog/Error.svg" alt="succes" />
                         <p className={style.title}>{typeLog}</p>
                     </div>
                     <p>{message}</p>
@@ -46,16 +43,13 @@ export const Toast: React.FC<LogPromptProps> = ({ typeLog, message }) => {
         return (
             <>
                 <div
-                    className={`${style.messageContainer} ${
-                        style.succesLogContainer
-                    } ${showLog ? "" : style.closeLog}`}
+                    className={`${style.messageContainer} ${style.succesLogContainer} ${
+                        showLog ? "" : style.closeLog
+                    }`}
                 >
                     <div className={style.upLoader}></div>
                     <div className={style.titleContainer}>
-                        <img
-                            src="/assets/iconModalLog/Success.svg"
-                            alt="succes"
-                        />
+                        <img src="/assets/iconModalLog/Success.svg" alt="succes" />
                         <p className={style.title}>{typeLog}</p>
                     </div>
                     <p>{message}</p>
