@@ -3,17 +3,14 @@ import { ParraingeFormProps } from "../../../types/ComponentsElementsTypes";
 import { useCodeParrainageHandler } from "../../../utils/useCodeParrainageHandler";
 import { Toast } from "../../Blocks/Toast/Toast";
 import { useState } from "react";
+import { toastType } from "../../../types/ComponentsElementsTypes";
 
 export const ParrainageCodeForm = ({
     goToUrl,
     loginType,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-    const [showToast, setShowToast] = useState<Array<[string, string]>>([]);
-    const { inputRefs, onSubmit } = useCodeParrainageHandler(
-        goToUrl,
-        showToast,
-        setShowToast
-    );
+    const [showToast, setShowToast] = useState<toastType>({ type: "", message: "", key: 0 });
+    const { inputRefs, onSubmitForm } = useCodeParrainageHandler(goToUrl, setShowToast);
 
     const setRef = (el: any, index: number) => {
         inputRefs.current[index] = el;
@@ -22,25 +19,21 @@ export const ParrainageCodeForm = ({
     const loginRender = () => {
         return (
             <>
-                <form onSubmit={onSubmit} className="formParrainage">
-                    <div className="inputCodeContainer">
+                <form onSubmit={onSubmitForm} className='formParrainage'>
+                    <div className='inputCodeContainer'>
                         {[...Array(6)].map((_, index) => (
                             <input
                                 key={index}
-                                name="code"
-                                placeholder="*"
+                                name='code'
+                                placeholder='*'
                                 required
                                 maxLength={1}
-                                className="code-input"
+                                className='code-input'
                                 ref={(el) => setRef(el, index)}
                             />
                         ))}
                     </div>
-                    <input
-                        type="submit"
-                        value="Checker le code"
-                        className="submitButton"
-                    />
+                    <input type='submit' value='Checker le code' className='submitButton' />
                 </form>
             </>
         );
@@ -49,46 +42,31 @@ export const ParrainageCodeForm = ({
     const renderRegister = () => {
         return (
             <>
-                <form
-                    onSubmit={onSubmit}
-                    className="formContainer formParrainage"
-                >
-                    <div className="boxFormRegisterContainer">
+                <form onSubmit={onSubmitForm} className='formContainer formParrainage'>
+                    <div className='boxFormRegisterContainer'>
                         <p>Code parrainage</p>
-                        <div className="inputCodeContainer">
+                        <div className='inputCodeContainer'>
                             {[...Array(6)].map((_, index) => (
                                 <input
                                     key={index}
-                                    name="code"
-                                    placeholder="*"
+                                    name='code'
+                                    placeholder='*'
                                     required
                                     maxLength={1}
-                                    className="code-input"
-                                    ref={(el) =>
-                                        (inputRefs.current[index] = el)
-                                    }
+                                    className='code-input'
+                                    ref={(el) => (inputRefs.current[index] = el)}
                                 />
                             ))}
                         </div>
                     </div>
-                    <input
-                        type="submit"
-                        value="Checker le code"
-                        className="submitButton"
-                    />
+                    <input type='submit' value='Checker le code' className='submitButton' />
                 </form>
-                {showToast.map(([toastType, toastMessage], index) => (
-                    <Toast
-                        key={index}
-                        typeLog={toastType}
-                        message={toastMessage}
-                    />
-                ))}
+                <div className='toastContainer'>
+                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
+                </div>
             </>
         );
     };
 
-    return (
-        <div>{loginType === "register" ? loginRender() : renderRegister()}</div>
-    );
+    return <div>{loginType === "register" ? loginRender() : renderRegister()}</div>;
 };

@@ -1,49 +1,86 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import style from "./FormRegister.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
-import { registerFormDataStateProps } from "../../../types/ComponentsElementsTypes";
+import {
+    registerFormDataStateProps,
+    registerFormDataToSendType,
+    toastType,
+} from "../../../types/ComponentsElementsTypes";
 import { Toast } from "../Toast/Toast";
+import { handlePostData } from "../../../services/api";
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
-
-    const [showToast, setShowToast] = useState<Array<[string, string]>>([]);
+    const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
         email: "",
         password: "",
-        confirmPassword: "",
         fName: "",
         name: "",
         phone: "",
     });
 
-    const handleFormRegister = () => {
-        if (formData.password.length < 6) {
-            return setShowToast((prevErrors: Array<[string, string]>) => [
-                ...prevErrors,
-                [
-                    "error",
-                    "le mot de passe doit au moins contenir 6 caractères",
-                ],
-            ]);
+    const postRegisterForm = async () => {
+        try {
+            const dataToSend: registerFormDataToSendType = {
+                email: formData.email,
+                password: formData.password,
+                userInfo: {
+                    firstName: formData.fName,
+                    lastName: formData.name,
+                    birthday: "2023-08-24T08:41:26.978Z",
+                    phoneNumber: formData.phone,
+                },
+            };
+
+            const response = await handlePostData("http://localhost:8000/api/users", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(dataToSend),
+            });
+        } catch (error) {
+            setshowToast({
+                type: "error",
+                message: "Erreur lors de l'enregistrement : " + error,
+                key: Date.now(),
+            });
         }
-        if (formData.password !== formData.confirmPassword) {
-            return setShowToast((prevErrors: Array<[string, string]>) => [
-                ...prevErrors,
-                [
-                    "error",
-                    "les mot de passe ne sont pas identiques, veuillez réessayer",
-                ],
-            ]);
-        } else {
+    };
+
+    const handleFormRegister = () => {
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+        const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+        if (!emailRegex.test(formData.email)) {
+            setshowToast({
+                type: "error",
+                message: "L'adresse e-mail n'est pas valide",
+                key: Date.now(),
+            });
+            return;
+        }
+        if (formData.password.length < 6) {
+            setshowToast({
+                type: "error",
+                message: "Le mot de passe doit contenir 6 caractères",
+                key: Date.now(),
+            });
+            return;
+        }
+
+        if (step === 3) {
+            postRegisterForm();
+        }
+        if (step < 3) {
             setStep((prevState) => prevState + 1);
+        } else {
+            setStep(3);
         }
     };
 
     const handleCorrectCheckForm = (value: string, correctCat: string) => {
         if (correctCat === "type") {
             if (value.includes("Password") || value.includes("password")) {
-                console.log("allez");
                 return "password";
             } else {
                 return value;
@@ -51,8 +88,6 @@ export const FormRegister = () => {
         }
         if (correctCat === "icon") {
             if (value.includes("Password") || value.includes("password")) {
-                console.log("Value:", value, "CorrectCat:", correctCat);
-                console.log("Nice");
                 return "password";
             } else if (value.includes("name") || value.includes("fName")) {
                 return "identity";
@@ -61,6 +96,7 @@ export const FormRegister = () => {
             }
         }
     };
+
     // STEP 0
     const emailPasswordForm = () => {
         return (
@@ -70,7 +106,7 @@ export const FormRegister = () => {
                     altIcon={"iconMail"}
                     placeholder={"Mail"}
                     labelType={"email"}
-                    name="email"
+                    name='email'
                     value={formData.email}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -84,22 +120,8 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Mot de passe"}
                     labelType={"password"}
-                    name="password"
+                    name='password'
                     value={formData.password}
-                    onChange={(e) =>
-                        setFormData((prevState) => ({
-                            ...prevState,
-                            [e.target.name]: e.target.value,
-                        }))
-                    }
-                />
-                <Input
-                    iconURL={"assets/inputs-icon/password.svg"}
-                    altIcon={"iconLock"}
-                    placeholder={"Confirmer le mot de passe"}
-                    labelType={"password"}
-                    name="confirmPassword"
-                    value={formData.confirmPassword}
                     onChange={(e) =>
                         setFormData((prevState) => ({
                             ...prevState,
@@ -120,7 +142,7 @@ export const FormRegister = () => {
                     altIcon={"iconMail"}
                     placeholder={"Nom"}
                     labelType={"fName"}
-                    name="fName"
+                    name='fName'
                     value={formData.fName}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -134,7 +156,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Prénom"}
                     labelType={"name"}
-                    name="name"
+                    name='name'
                     value={formData.name}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -156,7 +178,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}
                     labelType={"phone"}
-                    name="phone"
+                    name='phone'
                     value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -174,13 +196,9 @@ export const FormRegister = () => {
         return (
             <>
                 {Object.entries(formData).map(([key, value]) => (
-                    <>
+                    <div key={key}>
                         <Input
-                            key={key}
-                            iconURL={`assets/inputs-icon/${handleCorrectCheckForm(
-                                key,
-                                "icon"
-                            )}.svg`}
+                            iconURL={`assets/inputs-icon/${handleCorrectCheckForm(key, "icon")}.svg`}
                             altIcon={"iconLock"}
                             placeholder={`Enter your ${key}`}
                             labelType={handleCorrectCheckForm(key, "type")}
@@ -193,7 +211,7 @@ export const FormRegister = () => {
                                 }))
                             }
                         />
-                    </>
+                    </div>
                 ))}
             </>
         );
@@ -211,22 +229,11 @@ export const FormRegister = () => {
                     ? nameForm()
                     : step === 2
                     ? phoneForm()
-                    : step === 3
-                    ? lastCheckForm()
-                    : null}
+                    : lastCheckForm()}
             </div>
-            <ButtonSubmit
-                text={"suivant"}
-                callFunctionOnClick={handleFormRegister}
-            />
+            <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
             <div className={style.toastContainer}>
-                {showToast.map(([toastType, toastMessage], index) => (
-                    <Toast
-                        key={index}
-                        typeLog={toastType}
-                        message={toastMessage}
-                    />
-                ))}
+                <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
             </div>
         </div>
     );
