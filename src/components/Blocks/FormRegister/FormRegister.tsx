@@ -39,10 +39,12 @@ export const FormRegister = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
-
-            console.log(response);
         } catch (error) {
-            console.error("Erreur lors de l'enregistrement :", error);
+            setshowToast({
+                type: "error",
+                message: "Erreur lors de l'enregistrement : " + error,
+                key: Date.now(),
+            });
         }
     };
 
@@ -104,7 +106,7 @@ export const FormRegister = () => {
                     altIcon={"iconMail"}
                     placeholder={"Mail"}
                     labelType={"email"}
-                    name="email"
+                    name='email'
                     value={formData.email}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -118,7 +120,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Mot de passe"}
                     labelType={"password"}
-                    name="password"
+                    name='password'
                     value={formData.password}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -140,7 +142,7 @@ export const FormRegister = () => {
                     altIcon={"iconMail"}
                     placeholder={"Nom"}
                     labelType={"fName"}
-                    name="fName"
+                    name='fName'
                     value={formData.fName}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -154,7 +156,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"Prénom"}
                     labelType={"name"}
-                    name="name"
+                    name='name'
                     value={formData.name}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -176,7 +178,7 @@ export const FormRegister = () => {
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}
                     labelType={"phone"}
-                    name="phone"
+                    name='phone'
                     value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -196,10 +198,7 @@ export const FormRegister = () => {
                 {Object.entries(formData).map(([key, value]) => (
                     <div key={key}>
                         <Input
-                            iconURL={`assets/inputs-icon/${handleCorrectCheckForm(
-                                key,
-                                "icon"
-                            )}.svg`}
+                            iconURL={`assets/inputs-icon/${handleCorrectCheckForm(key, "icon")}.svg`}
                             altIcon={"iconLock"}
                             placeholder={`Enter your ${key}`}
                             labelType={handleCorrectCheckForm(key, "type")}
