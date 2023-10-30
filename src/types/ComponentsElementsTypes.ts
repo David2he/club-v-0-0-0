@@ -5,7 +5,7 @@ export type InputProps = {
     placeholder?: string;
     name?: string;
     value?: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => any;
+    onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
 };
 
 export type ButtonSubmitProps = {
@@ -38,7 +38,7 @@ export type toastType = {
     key?: number;
 };
 
-export type registerFormDataToSendType = {
+export type RegisterFormDataToSendType = {
     email: string;
     password: string;
     userInfo: {
@@ -49,7 +49,13 @@ export type registerFormDataToSendType = {
     };
 };
 
-export type loginFormDataToSendType = {
+export type LoginFormDataToSendType = {
     username: string;
     password: string;
+};
+
+export type BlockTextProps = {
+    title: string;
+    text: string | JSX.Element[] | (() => JSX.Element);
+    closable: boolean;
 };

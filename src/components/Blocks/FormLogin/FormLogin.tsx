@@ -1,7 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { Input } from "../../Elements/Input/Input";
 import { handlePostData } from "../../../services/api";
-import { loginFormDataToSendType } from "../../../types/ComponentsElementsTypes";
+import { LoginFormDataToSendType } from "../../../types/ComponentsElementsTypes";
 import style from "./FormLogin.module.scss";
 
 export const FormLogin = () => {
@@ -22,7 +22,7 @@ export const FormLogin = () => {
         event.preventDefault();
 
         try {
-            const dataToSend: loginFormDataToSendType = {
+            const dataToSend: LoginFormDataToSendType = {
                 username: formData.email,
                 password: formData.password,
             };

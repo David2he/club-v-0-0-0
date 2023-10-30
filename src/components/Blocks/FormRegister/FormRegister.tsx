@@ -4,7 +4,7 @@ import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import {
     registerFormDataStateProps,
-    registerFormDataToSendType,
+    RegisterFormDataToSendType,
     toastType,
 } from "../../../types/ComponentsElementsTypes";
 import { Toast } from "../Toast/Toast";
@@ -22,7 +22,7 @@ export const FormRegister = () => {
 
     const postRegisterForm = async () => {
         try {
-            const dataToSend: registerFormDataToSendType = {
+            const dataToSend: RegisterFormDataToSendType = {
                 email: formData.email,
                 password: formData.password,
                 userInfo: {

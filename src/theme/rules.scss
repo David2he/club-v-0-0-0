@@ -227,6 +227,10 @@
 
 //// INPUTS ////
 
+* {
+    z-index: 0;
+}
+
 @mixin input {
     width: 18.5rem;
     border-bottom: solid 1px var(--ion-secondary-text-color);
