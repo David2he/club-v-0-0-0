@@ -114,6 +114,7 @@ export const FormRegister = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
+                    type='classic'
                 />
                 <Input
                     iconURL={"assets/inputs-icon/password.svg"}
@@ -128,6 +129,7 @@ export const FormRegister = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
+                    type='classic'
                 />
             </>
         );
@@ -150,6 +152,7 @@ export const FormRegister = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
+                    type='classic'
                 />
                 <Input
                     iconURL={"assets/inputs-icon/identity.svg"}
@@ -164,6 +167,7 @@ export const FormRegister = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
+                    type='classic'
                 />
             </>
         );
@@ -186,6 +190,7 @@ export const FormRegister = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
+                    type='classic'
                 />
             </>
         );
@@ -210,6 +215,7 @@ export const FormRegister = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
+                            type='classic'
                         />
                     </div>
                 ))}

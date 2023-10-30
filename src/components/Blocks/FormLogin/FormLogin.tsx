@@ -55,6 +55,7 @@ export const FormLogin = () => {
                         name='email'
                         value={formData.email}
                         onChange={handleChange}
+                        type='classic'
                     />
                     <Input
                         iconURL={"assets/inputs-icon/password.svg"}
@@ -64,6 +65,7 @@ export const FormLogin = () => {
                         name='password'
                         value={formData.password}
                         onChange={handleChange}
+                        type='classic'
                     />
                 </div>
                 <a href='#' className={style.link}>

@@ -5,6 +5,7 @@ export type InputProps = {
     placeholder?: string;
     name?: string;
     value?: string;
+    type?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
 };
 

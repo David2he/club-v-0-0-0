@@ -233,10 +233,20 @@
 
 @mixin input {
     width: 18.5rem;
-    border-bottom: solid 1px var(--ion-secondary-text-color);
     display: flex;
     justify-content: flex-start;
     padding-bottom: 0.3125rem;
+    input {
+        all: unset;
+        text-align: start;
+        width: 90%;
+        @include Ltext_02;
+    }
+}
+
+@mixin basicInput {
+    @include input;
+    border-bottom: solid 1px var(--ion-secondary-text-color);
     label {
         width: 10%;
         padding-right: 1rem;
@@ -248,11 +258,18 @@
         width: 1rem;
         height: 1rem;
     }
-    input {
-        all: unset;
-        text-align: start;
-        width: 90%;
-        @include Ltext_02;
+}
+@mixin searchInput {
+    @include input;
+    background-color: var(--ion-white-color);
+    border-radius: 1rem;
+    color: var(--ion-background-color);
+    padding: 0.5rem;
+    label {
+        width: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 
