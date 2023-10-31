@@ -3,23 +3,24 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
-  /** primary **/
-  --ion-background-color: #2F2F2F;
-  --ion-text-color: #FFCB74; /* Couleur du texte principal */
-  --ion-link-color: #FFBC47; /* Couleur des liens */
-  --ion-secondary-text-color: #A3A3A3; /* Couleur des textes moins importants */
-  --ion-white-color: #F4FAFF;
-  --ion-black-color: #151515;
+    /** primary **/
+    --ion-background-color: #2f2f2f;
+    --ion-text-color: #ffcb74; /* Couleur du texte principal */
+    --ion-link-color: #ffbc47; /* Couleur des liens */
+    --ion-secondary-text-color: #a3a3a3; /* Couleur des textes moins importants */
+    --ion-white-color: #f4faff;
+    --ion-black-color: #151515;
+    --ion-background-color-contrast: #393a3f;
 }
 
 @media (prefers-color-scheme: light) {
-  body {
-    --ion-color-primary: #FFCB74;
-    --ion-color-primary-contrast: #2F2F2F;
-    --ion-background-color: #F4FAFF;
-    --ion-text-color: #FFCB74; /* Couleur du texte principal */
-    --ion-link-color: #FFBC47; /* Couleur des liens */
-    --ion-secondary-text-color: #A3A3A3; /* Couleur des textes moins importants */
-    --ion-black-color: #151515;
-  }
+    body {
+        --ion-color-primary: #ffcb74;
+        --ion-color-primary-contrast: #2f2f2f;
+        --ion-background-color: #f4faff;
+        --ion-text-color: #ffcb74; /* Couleur du texte principal */
+        --ion-link-color: #ffbc47; /* Couleur des liens */
+        --ion-secondary-text-color: #a3a3a3; /* Couleur des textes moins importants */
+        --ion-black-color: #151515;
+    }
 }

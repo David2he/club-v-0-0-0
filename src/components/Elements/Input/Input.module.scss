@@ -1,5 +1,9 @@
 @import "../../../../src/theme/rules.scss";
 
-.inputHandler {
-  @include input;
+.inputBasic {
+    @include basicInput;
+}
+
+.inputSearch {
+    @include searchInput;
 }
