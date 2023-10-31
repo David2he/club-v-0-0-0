@@ -13,7 +13,7 @@ export const Input = ({
 }: InputProps & React.InputHTMLAttributes<HTMLInputElement>) => {
     return (
         <>
-            <div className={`${type === "basic" ? style.inputBasic : style.inputSearch}`}>
+            <div className={`${type === "classic" ? style.inputBasic : style.inputSearch}`}>
                 <label htmlFor={labelType}>{iconURL && altIcon && <img src={iconURL} alt={altIcon} />}</label>
                 <input
                     className={style.input}

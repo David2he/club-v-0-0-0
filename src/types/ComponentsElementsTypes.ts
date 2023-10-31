@@ -1,3 +1,5 @@
+import { RouteProps  } from "react-router-dom";
+
 export type InputProps = {
     iconURL?: string;
     altIcon?: string;
@@ -60,3 +62,7 @@ export type BlockTextProps = {
     text: string | JSX.Element[] | (() => JSX.Element);
     closable: boolean;
 };
+
+export interface ProtectedRouteProps extends RouteProps {
+    component: React.ComponentType<any>;
+}

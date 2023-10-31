@@ -3,9 +3,21 @@ import { Input } from "../../Elements/Input/Input";
 import { handlePostData } from "../../../services/api";
 import { LoginFormDataToSendType } from "../../../types/ComponentsElementsTypes";
 import style from "./FormLogin.module.scss";
+import { useAuth } from "../../../services/contexts/AuthContext";
+
+import { useHistory } from 'react-router-dom';
 
 export const FormLogin = () => {
+    const history = useHistory();
     const [formData, setFormData] = useState({ email: "", password: "" });
+
+    const auth = useAuth();
+
+    if (!auth) {
+        throw new Error("Auth context is undefined");
+    }
+
+    const { login } = auth;
     const [responseData, setResponseData] = useState({
         email: "",
         password: "",
@@ -33,11 +45,12 @@ export const FormLogin = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
-
-            setResponseData({
-                email: formData.email,
-                password: formData.password,
-            });
+            login();
+            history.push('/homePageMenber');
+            // setResponseData({
+            //     email: formData.email,
+            //     password: formData.password,
+            // });
         } catch (error) {
             console.error("Erreur lors de l'envoi des données :", error);
         }
@@ -45,33 +58,33 @@ export const FormLogin = () => {
 
     return (
         <>
-            <form id='container' className={style.formContainer} onSubmit={handleSubmit}>
+            <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
                 <div className={style.inputContainer}>
                     <Input
                         iconURL={"assets/inputs-icon/email.svg"}
                         altIcon={"iconMail"}
                         placeholder={"Mail"}
                         labelType={"email"}
-                        name='email'
+                        name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                     <Input
                         iconURL={"assets/inputs-icon/password.svg"}
                         altIcon={"iconLock"}
                         placeholder={"Mot de passe"}
                         labelType={"password"}
-                        name='password'
+                        name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                 </div>
-                <a href='#' className={style.link}>
+                <a href="#" className={style.link}>
                     mot de passe oublié ?
                 </a>
-                <input type='submit' value='Se connecter' className={style.submitButton}></input>
+                <input type="submit" value="Se connecter" className={style.submitButton}></input>
             </form>
         </>
     );

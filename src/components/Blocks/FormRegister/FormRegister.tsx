@@ -9,7 +9,10 @@ import {
 } from "../../../types/ComponentsElementsTypes";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
+import { useAuth } from "../../../services/contexts/AuthContext";
 export const FormRegister = () => {
+    const trest = useAuth();
+    trest?.login()
     const [step, setStep] = useState<number>(0);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -161,6 +164,21 @@ export const FormRegister = () => {
                     labelType={"name"}
                     name='name'
                     value={formData.name}
+                    onChange={(e) =>
+                        setFormData((prevState) => ({
+                            ...prevState,
+                            [e.target.name]: e.target.value,
+                        }))
+                    }
+                    type='classic'
+                />
+                 <Input
+                    iconURL={"assets/inputs-icon/phone.svg"}
+                    altIcon={"iconLock"}
+                    placeholder={"+33 6 43 ......"}
+                    labelType={"phone"}
+                    name='phone'
+                    value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
                             ...prevState,
