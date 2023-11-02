@@ -1,4 +1,4 @@
-import { RouteProps  } from "react-router-dom";
+import { RouteProps } from "react-router-dom";
 
 export type InputProps = {
     iconURL?: string;
@@ -64,5 +64,14 @@ export type BlockTextProps = {
 };
 
 export interface ProtectedRouteProps extends RouteProps {
-    component: React.ComponentType<any>;
+    authenticatedComponent: React.ComponentType<any>;
+    unauthenticatedComponent: React.ComponentType<any>;
+}
+export interface AuthContextType {
+    isAuthenticated: boolean;
+    user: any;
+    login: () => void;
+    logout: () => void;
+    updateUser: (token: string) => void;
+    checkToken: () => void;
 }

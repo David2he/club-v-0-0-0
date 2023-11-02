@@ -1,6 +1,6 @@
 import style from "./BlockText.module.scss";
 import { useState } from "react";
-import { BlockTextProps } from "../../../types/ComponentsElementsTypes";
+import { BlockTextProps } from "../../../types/Types";
 export const BlockText = ({ title, text, closable }: BlockTextProps) => {
     const [isOpen, setIsOpen] = useState(true);
     if (!isOpen) return null;

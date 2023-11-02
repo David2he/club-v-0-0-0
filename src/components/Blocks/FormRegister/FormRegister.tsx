@@ -2,17 +2,13 @@ import { useState } from "react";
 import style from "./FormRegister.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
-import {
-    registerFormDataStateProps,
-    RegisterFormDataToSendType,
-    toastType,
-} from "../../../types/ComponentsElementsTypes";
+import { registerFormDataStateProps, RegisterFormDataToSendType, toastType } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
 import { useAuth } from "../../../services/contexts/AuthContext";
 export const FormRegister = () => {
     const trest = useAuth();
-    trest?.login()
+    trest?.login();
     const [step, setStep] = useState<number>(0);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -172,7 +168,7 @@ export const FormRegister = () => {
                     }
                     type='classic'
                 />
-                 <Input
+                <Input
                     iconURL={"assets/inputs-icon/phone.svg"}
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}

@@ -1,5 +1,5 @@
 import style from "./Toast.module.scss";
-import { toastProps } from "../../../types/ComponentsElementsTypes";
+import { toastProps } from "../../../types/Types";
 import { useState } from "react";
 
 export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
