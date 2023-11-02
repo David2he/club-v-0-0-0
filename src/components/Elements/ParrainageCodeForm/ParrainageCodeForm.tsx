@@ -1,9 +1,9 @@
 import "./ParainageCode.scss";
-import { ParraingeFormProps } from "../../../types/ComponentsElementsTypes";
+import { ParraingeFormProps } from "../../../types/Types";
 import { useCodeParrainageHandler } from "../../../utils/useCodeParrainageHandler";
 import { Toast } from "../../Blocks/Toast/Toast";
 import { useState } from "react";
-import { toastType } from "../../../types/ComponentsElementsTypes";
+import { toastType } from "../../../types/Types";
 
 export const ParrainageCodeForm = ({
     goToUrl,
