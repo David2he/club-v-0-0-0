@@ -46,7 +46,6 @@ export const FormLogin = () => {
             if (response.status === 200) {
                 await setStorageItem("token", response.data.token);
                 login();
-                history.push("/homePageMenber");
             }
         } catch (error) {
             console.error("Erreur lors de l'envoi des données :", error);
@@ -55,33 +54,33 @@ export const FormLogin = () => {
 
     return (
         <>
-            <form id='container' className={style.formContainer} onSubmit={handleSubmit}>
+            <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
                 <div className={style.inputContainer}>
                     <Input
-                        iconURL={"assets/inputs-icon/email.svg"}
+                        iconURL={"assets/iconInput/email.svg"}
                         altIcon={"iconMail"}
                         placeholder={"Mail"}
                         labelType={"email"}
-                        name='email'
+                        name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                     <Input
-                        iconURL={"assets/inputs-icon/password.svg"}
+                        iconURL={"assets/iconInput/password.svg"}
                         altIcon={"iconLock"}
                         placeholder={"Mot de passe"}
                         labelType={"password"}
-                        name='password'
+                        name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                 </div>
-                <a href='#' className={style.link}>
+                <a href="#" className={style.link}>
                     mot de passe oublié ?
                 </a>
-                <input type='submit' value='Se connecter' className={style.submitButton}></input>
+                <input type="submit" value="Se connecter" className={style.submitButton}></input>
             </form>
         </>
     );

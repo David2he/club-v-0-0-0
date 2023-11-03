@@ -60,7 +60,8 @@ export type LoginFormDataToSendType = {
 export type BlockTextProps = {
     title: string;
     text: string | JSX.Element[] | (() => JSX.Element);
-    closable: boolean;
+    closable?: boolean;
+    expandable?: boolean;
 };
 
 export interface ProtectedRouteProps extends RouteProps {

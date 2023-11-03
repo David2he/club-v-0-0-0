@@ -23,7 +23,7 @@ const AppRouter: React.FC = () => {
             />
             <ProtectedRoute
                 exact
-                path='/homePageMenber'
+                path='/'
                 authenticatedComponent={HomePageMenber}
                 unauthenticatedComponent={Home}
             />

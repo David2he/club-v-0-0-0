@@ -15,7 +15,7 @@ export const DisplayItemsHomePageMenber = () => {
 
     return (
         <div>
-            <BlockText title='Nos marques' text={displayThemAll} closable={false} />
+            <BlockText title="Nos marques" text={displayThemAll} closable={false} />
         </div>
     );
 };
