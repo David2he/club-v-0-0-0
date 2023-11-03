@@ -21,7 +21,6 @@ export const useCodeParrainageHandler = (goToUrl?: string, setShowToast?: any) =
     }
 
     const onSubmitForm = async (e: React.FormEvent) => {
-        // console.log(goToUrl, "goToUrl");
         e.preventDefault();
         setSubmitCount((prevCount) => prevCount + 1);
         const code = inputRefs.current.map((input) => input?.value).join("");

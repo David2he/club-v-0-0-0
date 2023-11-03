@@ -6,6 +6,7 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
     const [isUnfolded, setIsUnfolded] = useState(true);
     const contentRef = useRef<HTMLDivElement>(null);
 
+    if (!isOpen) return null;
     const foldUnfoldElement = () => {
         const content = contentRef.current;
         if (content) {
@@ -22,8 +23,6 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
             setIsUnfolded((prevIsDeploy) => !prevIsDeploy);
         }
     };
-
-    if (!isOpen) return null;
 
     return (
         <div className={style.container}>

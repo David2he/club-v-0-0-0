@@ -5,15 +5,15 @@ import { ParrainageCodeLoginChoice } from "../components/Blocks/ParrainageCodeLo
 import "./Home.scss";
 
 const Home: React.FC = () => {
-  return (
-    <IonPage id="main-content" className="container">
-      <div className="headerContainer">
-        <Header />
-      </div>
-      <FormLogin />
-      <ParrainageCodeLoginChoice />
-    </IonPage>
-  );
+    return (
+        <IonPage id="main-content" className="container">
+            <div className="headerContainer">
+                <Header />
+            </div>
+            <FormLogin />
+            <ParrainageCodeLoginChoice />
+        </IonPage>
+    );
 };
 
 export default Home;
