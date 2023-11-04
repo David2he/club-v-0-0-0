@@ -29,7 +29,6 @@ export type toastProps = {
 export type registerFormDataStateProps = {
     email: string;
     password: string;
-
     fName: string;
     name: string;
     phone: string;
@@ -50,6 +49,9 @@ export type RegisterFormDataToSendType = {
         birthday: string;
         phoneNumber: string;
     };
+    isAdmin?: boolean;
+    isBrandAdmin?: boolean;
+    nonce: string;
 };
 
 export type LoginFormDataToSendType = {
@@ -76,3 +78,7 @@ export interface AuthContextType {
     updateUser: (token: string) => void;
     checkToken: () => void;
 }
+
+export type RedirectProps = {
+    path: string;
+};

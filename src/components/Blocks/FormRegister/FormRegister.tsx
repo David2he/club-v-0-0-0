@@ -9,10 +9,8 @@ import {
 } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
-import { useAuth } from "../../../services/contexts/AuthContext";
-export const FormRegister = () => {
-    const trest = useAuth();
-    trest?.login();
+
+export const FormRegister = (nonce: string) => {
     const [step, setStep] = useState<number>(0);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -34,6 +32,7 @@ export const FormRegister = () => {
                     birthday: "2023-08-24T08:41:26.978Z",
                     phoneNumber: formData.phone,
                 },
+                nonce: "035615",
             };
 
             const response = await handlePostData("http://localhost:8000/api/users", {
@@ -42,6 +41,7 @@ export const FormRegister = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
+            console.log(response);
         } catch (error) {
             setshowToast({
                 type: "error",
@@ -62,6 +62,7 @@ export const FormRegister = () => {
             });
             return;
         }
+
         if (formData.password.length < 6) {
             setshowToast({
                 type: "error",
@@ -71,13 +72,32 @@ export const FormRegister = () => {
             return;
         }
 
-        if (step === 3) {
+        if (step > 0) {
+            if (formData.fName.length < 2 || formData.name.length < 2) {
+                setshowToast({
+                    type: "error",
+                    message: "Le nom ou le prénom doit contenir au moins 1 caractères",
+                    key: Date.now(),
+                });
+                return;
+            }
+            if (!phoneRegex.test(formData.phone)) {
+                setshowToast({
+                    type: "error",
+                    message: "Le numéro de téléphone n'est pas valide",
+                    key: Date.now(),
+                });
+                return;
+            }
+        }
+
+        if (step === 2) {
             postRegisterForm();
         }
-        if (step < 3) {
+        if (step < 2) {
             setStep((prevState) => prevState + 1);
         } else {
-            setStep(3);
+            setStep(2);
         }
     };
 
@@ -192,27 +212,6 @@ export const FormRegister = () => {
     };
 
     // STEP 2
-    const phoneForm = () => {
-        return (
-            <>
-                <Input
-                    iconURL={"assets/iconInput/phone.svg"}
-                    altIcon={"iconLock"}
-                    placeholder={"+33 6 43 ......"}
-                    labelType={"phone"}
-                    name="phone"
-                    value={formData.phone}
-                    onChange={(e) =>
-                        setFormData((prevState) => ({
-                            ...prevState,
-                            [e.target.name]: e.target.value,
-                        }))
-                    }
-                    type="classic"
-                />
-            </>
-        );
-    };
 
     // STEP 3
     const lastCheckForm = () => {
@@ -245,15 +244,9 @@ export const FormRegister = () => {
         <div className={style.formRegisterContainer}>
             <div className={style.inputContainer}>
                 <div className={style.loadingBar}>
-                    <span style={{ transform: `scaleX(${step * 33}%)` }}></span>
+                    <span style={{ transform: `scaleX(${step * 50}%)` }}></span>
                 </div>
-                {step === 0
-                    ? emailPasswordForm()
-                    : step === 1
-                    ? nameForm()
-                    : step === 2
-                    ? phoneForm()
-                    : lastCheckForm()}
+                {step === 0 ? emailPasswordForm() : step === 1 ? nameForm() : lastCheckForm()}
             </div>
             <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
             <div className={style.toastContainer}>

@@ -1,16 +1,12 @@
 import "./ParainageCode.scss";
 import { ParraingeFormProps } from "../../../types/Types";
-import { useCodeParrainageHandler } from "../../../utils/useCodeParrainageHandler";
-import { Toast } from "../../Blocks/Toast/Toast";
-import { useState } from "react";
-import { toastType } from "../../../types/Types";
+import { useCodeParrainageHandler } from "../../../utils/CheckCodeParrainage/useCodeParrainageHandler";
 
 export const ParrainageCodeForm = ({
     goToUrl,
     loginType,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-    const [showToast, setShowToast] = useState<toastType>({ type: "", message: "", key: 0 });
-    const { inputRefs, onSubmitForm } = useCodeParrainageHandler(goToUrl, setShowToast);
+    const { inputRefs, onSubmitForm } = useCodeParrainageHandler(goToUrl);
 
     const setRef = (el: any, index: number) => {
         inputRefs.current[index] = el;
@@ -61,13 +57,7 @@ export const ParrainageCodeForm = ({
                     </div>
                     <input type="submit" value="S'enrengistrer" className="submitButton" />
                 </form>
-                <div className="toastContainer">
-                    <Toast
-                        typeLog={showToast.type}
-                        message={showToast.message}
-                        key={showToast.key}
-                    />
-                </div>
+                <div className="toastContainer"></div>
             </>
         );
     };

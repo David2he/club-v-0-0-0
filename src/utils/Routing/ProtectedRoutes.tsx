@@ -1,6 +1,6 @@
-import { ProtectedRouteProps } from "../types/Types";
+import { ProtectedRouteProps } from "../../types/Types";
 import { Route, Redirect } from "react-router";
-import { useAuth } from "../services/contexts/AuthContext";
+import { useAuth } from "../../services/contexts/AuthContext";
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     authenticatedComponent: AuthComponent,
@@ -12,7 +12,13 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     return (
         <Route
             {...rest}
-            render={(props) => (auth?.isAuthenticated ? <AuthComponent {...props} /> : <UnauthComponent {...props} />)}
+            render={(props) =>
+                auth?.isAuthenticated ? (
+                    <AuthComponent {...props} />
+                ) : (
+                    <UnauthComponent {...props} />
+                )
+            }
         />
     );
 };
