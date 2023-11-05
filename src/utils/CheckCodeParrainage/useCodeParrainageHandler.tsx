@@ -1,17 +1,12 @@
 import { useRef, useEffect } from "react";
 import { Browser } from "@capacitor/browser";
 import { useHistory } from "react-router";
-interface CodeParrainageHandler {
-    inputRefs: React.MutableRefObject<(HTMLInputElement | null)[]>;
-    onSubmitForm: (e: React.FormEvent) => Promise<void>;
-    getCurrentCode: (onCodeFetch: (code: string) => void) => () => void;
-    fetchCurrentCode: () => string;
-    onCodeFetch: (code: string) => void;
-}
+import { CodeParrainageType } from "../../types/Types";
+
 export const useCodeParrainageHandler = (
     goToUrl?: string,
     onCodeFetch?: (code: string) => void
-): CodeParrainageHandler => {
+): CodeParrainageType => {
     const history = useHistory();
     const currentUrl = new URL(window.location.href);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);

@@ -84,3 +84,10 @@ export interface AuthContextType {
 export type RedirectProps = {
     path: string;
 };
+
+export interface CodeParrainageType {
+    inputRefs: React.MutableRefObject<(HTMLInputElement | null)[]>;
+    onSubmitForm: (e: React.FormEvent) => Promise<void>;
+    getCurrentCode: (onCodeFetch: (code: string) => void) => () => void;
+    fetchCurrentCode: () => string;
+}
