@@ -7,23 +7,23 @@ import Register from "../pages/Register/Register";
 import RegisterForm from "../pages/RegisterForm/RegisterForm";
 import HomePageMenber from "../pages/HomePageMenber/HomePageMenber";
 
-import { ProtectedRoute } from "./ProtectedRoutes";
+import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 
 const AppRouter: React.FC = () => {
     return (
         <IonRouterOutlet>
-            <Route exact path='/home' component={Home} />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/RegisterForm' component={RegisterForm} />
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/RegisterForm" component={RegisterForm} />
             <ProtectedRoute
                 exact
-                path='/homePageMenber'
+                path="/homePageMenber"
                 authenticatedComponent={HomePageMenber}
                 unauthenticatedComponent={Home}
             />
             <ProtectedRoute
                 exact
-                path='/'
+                path="/"
                 authenticatedComponent={HomePageMenber}
                 unauthenticatedComponent={Home}
             />

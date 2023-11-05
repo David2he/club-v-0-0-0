@@ -1,14 +1,16 @@
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect } from "react";
 import { Browser } from "@capacitor/browser";
-import { useCheckCodeParrainage } from "./useCheckCodeParrainage";
+import { useHistory } from "react-router";
+import { CodeParrainageType } from "../../types/Types";
 
-export const useCodeParrainageHandler = (goToUrl?: string, setShowToast?: any) => {
+export const useCodeParrainageHandler = (
+    goToUrl?: string,
+    onCodeFetch?: (code: string) => void
+): CodeParrainageType => {
+    const history = useHistory();
     const currentUrl = new URL(window.location.href);
-    const [submitCount, setSubmitCount] = useState(0);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const codeFromUrl = currentUrl.searchParams.get("code");
-    const [isCodeValid, setIsCodeValid] = useState(false);
-
     const firstRender = useRef(true);
 
     if (codeFromUrl && firstRender.current) {
@@ -17,15 +19,43 @@ export const useCodeParrainageHandler = (goToUrl?: string, setShowToast?: any) =
             if (input && codeArray[index]) {
                 input.value = codeArray[index];
             }
+            firstRender.current = false;
         });
+        if (onCodeFetch) {
+            onCodeFetch(codeFromUrl); // Appeler onCodeFetch ici avec le code de l'URL
+        }
     }
+    const fetchCurrentCode = () => {
+        const code = inputRefs.current.map((input) => input?.value).join("");
+        return code;
+    };
+    const getCurrentCode = (onCodeFetch: any) => {
+        const handleInputChange = () => {
+            const code = inputRefs.current.map((input) => input?.value).join("");
+            console.log(code);
+            onCodeFetch(code);
+        };
+
+        inputRefs.current.forEach((input) => {
+            if (input) {
+                input.addEventListener("input", handleInputChange);
+            }
+        });
+
+        return () => {
+            inputRefs.current.forEach((input) => {
+                if (input) {
+                    input.removeEventListener("input", handleInputChange);
+                }
+            });
+        };
+    };
 
     const onSubmitForm = async (e: React.FormEvent) => {
         e.preventDefault();
-        setSubmitCount((prevCount) => prevCount + 1);
         const code = inputRefs.current.map((input) => input?.value).join("");
         const openInBrowser = async (currentUrl: URL) => {
-            const newUrl = currentUrl.origin + "/register";
+            const newUrl = currentUrl.origin + "/RegisterForm";
             await Browser.open({
                 url: `${newUrl}?code=${code}`,
             });
@@ -34,17 +64,7 @@ export const useCodeParrainageHandler = (goToUrl?: string, setShowToast?: any) =
         if (goToUrl) {
             openInBrowser(currentUrl);
         } else {
-            const result = await useCheckCodeParrainage(code, setShowToast);
-            setIsCodeValid(result);
-
-            if (firstRender.current) firstRender.current = false;
-            if (!result) {
-                inputRefs.current.forEach((input) => {
-                    if (input) {
-                        input.value = "";
-                    }
-                });
-            }
+            history.push("/RegisterForm");
         }
     };
 
@@ -90,5 +110,7 @@ export const useCodeParrainageHandler = (goToUrl?: string, setShowToast?: any) =
     return {
         inputRefs,
         onSubmitForm,
+        getCurrentCode,
+        fetchCurrentCode, // Exposez la nouvelle fonction
     };
 };

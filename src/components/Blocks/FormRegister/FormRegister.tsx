@@ -9,10 +9,9 @@ import {
 } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
-import { useAuth } from "../../../services/contexts/AuthContext";
-export const FormRegister = () => {
-    const trest = useAuth();
-    trest?.login();
+import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
+
+export const FormRegister = (parrainageCode: string) => {
     const [step, setStep] = useState<number>(0);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -21,6 +20,7 @@ export const FormRegister = () => {
         fName: "",
         name: "",
         phone: "",
+        parrainageCode: "",
     });
 
     const postRegisterForm = async () => {
@@ -34,6 +34,7 @@ export const FormRegister = () => {
                     birthday: "2023-08-24T08:41:26.978Z",
                     phoneNumber: formData.phone,
                 },
+                nonce: formData.parrainageCode,
             };
 
             const response = await handlePostData("http://localhost:8000/api/users", {
@@ -42,6 +43,7 @@ export const FormRegister = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
+            console.log(response);
         } catch (error) {
             setshowToast({
                 type: "error",
@@ -54,27 +56,51 @@ export const FormRegister = () => {
     const handleFormRegister = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
-        if (!emailRegex.test(formData.email)) {
-            setshowToast({
-                type: "error",
-                message: "L'adresse e-mail n'est pas valide",
-                key: Date.now(),
-            });
-            return;
+        if (step > 0) {
+            if (!emailRegex.test(formData.email)) {
+                setshowToast({
+                    type: "error",
+                    message: "L'adresse e-mail n'est pas valide",
+                    key: Date.now(),
+                });
+                return;
+            }
+
+            if (formData.password.length < 6) {
+                setshowToast({
+                    type: "error",
+                    message: "Le mot de passe doit contenir 6 caractères",
+                    key: Date.now(),
+                });
+                return;
+            }
         }
-        if (formData.password.length < 6) {
-            setshowToast({
-                type: "error",
-                message: "Le mot de passe doit contenir 6 caractères",
-                key: Date.now(),
-            });
-            return;
+
+        if (step > 1) {
+            if (formData.fName.length < 2 || formData.name.length < 2) {
+                setshowToast({
+                    type: "error",
+                    message: "Le nom ou le prénom doit contenir au moins 1 caractères",
+                    key: Date.now(),
+                });
+                return;
+            }
+            if (!phoneRegex.test(formData.phone)) {
+                setshowToast({
+                    type: "error",
+                    message: "Le numéro de téléphone n'est pas valide",
+                    key: Date.now(),
+                });
+                return;
+            }
         }
 
         if (step === 3) {
             postRegisterForm();
         }
         if (step < 3) {
+            console.log(step);
+            console.log(formData);
             setStep((prevState) => prevState + 1);
         } else {
             setStep(3);
@@ -101,6 +127,19 @@ export const FormRegister = () => {
     };
 
     // STEP 0
+    const handleFormParrainageCode = () => {
+        const getCode = (code?: string) => {
+            console.log(code, "code");
+            if (!code) return;
+            setFormData((prevState) => ({
+                ...prevState,
+                parrainageCode: code,
+            }));
+        };
+        return <ParrainageCodeForm loginType="register" onCodeFetch={getCode} />;
+    };
+
+    // STEP 1
     const emailPasswordForm = () => {
         return (
             <>
@@ -138,7 +177,7 @@ export const FormRegister = () => {
         );
     };
 
-    // STEP 1
+    // STEP 2
     const nameForm = () => {
         return (
             <>
@@ -191,29 +230,6 @@ export const FormRegister = () => {
         );
     };
 
-    // STEP 2
-    const phoneForm = () => {
-        return (
-            <>
-                <Input
-                    iconURL={"assets/iconInput/phone.svg"}
-                    altIcon={"iconLock"}
-                    placeholder={"+33 6 43 ......"}
-                    labelType={"phone"}
-                    name="phone"
-                    value={formData.phone}
-                    onChange={(e) =>
-                        setFormData((prevState) => ({
-                            ...prevState,
-                            [e.target.name]: e.target.value,
-                        }))
-                    }
-                    type="classic"
-                />
-            </>
-        );
-    };
-
     // STEP 3
     const lastCheckForm = () => {
         return (
@@ -240,20 +256,24 @@ export const FormRegister = () => {
             </>
         );
     };
+    let renderedForm;
+    if (step === 0) {
+        renderedForm = handleFormParrainageCode();
+    } else if (step === 1) {
+        renderedForm = emailPasswordForm();
+    } else if (step === 2) {
+        renderedForm = nameForm();
+    } else if (step === 3) {
+        renderedForm = lastCheckForm();
+    }
 
     return (
         <div className={style.formRegisterContainer}>
             <div className={style.inputContainer}>
                 <div className={style.loadingBar}>
-                    <span style={{ transform: `scaleX(${step * 33}%)` }}></span>
+                    <span style={{ transform: `scaleX(${step * 33.33}%)` }}></span>
                 </div>
-                {step === 0
-                    ? emailPasswordForm()
-                    : step === 1
-                    ? nameForm()
-                    : step === 2
-                    ? phoneForm()
-                    : lastCheckForm()}
+                {renderedForm}
             </div>
             <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
             <div className={style.toastContainer}>

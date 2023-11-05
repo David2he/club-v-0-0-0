@@ -19,6 +19,7 @@ export type ButtonSubmitProps = {
 export type ParraingeFormProps = {
     goToUrl?: string;
     loginType?: string;
+    onCodeFetch?: (code: string) => void;
 };
 
 export type toastProps = {
@@ -29,16 +30,10 @@ export type toastProps = {
 export type registerFormDataStateProps = {
     email: string;
     password: string;
-
     fName: string;
     name: string;
     phone: string;
-};
-
-export type toastType = {
-    type: string;
-    message: string;
-    key?: number;
+    parrainageCode: string;
 };
 
 export type RegisterFormDataToSendType = {
@@ -50,6 +45,15 @@ export type RegisterFormDataToSendType = {
         birthday: string;
         phoneNumber: string;
     };
+    isAdmin?: boolean;
+    isBrandAdmin?: boolean;
+    nonce: string;
+};
+
+export type toastType = {
+    type: string;
+    message: string;
+    key?: number;
 };
 
 export type LoginFormDataToSendType = {
@@ -75,4 +79,15 @@ export interface AuthContextType {
     logout: () => void;
     updateUser: (token: string) => void;
     checkToken: () => void;
+}
+
+export type RedirectProps = {
+    path: string;
+};
+
+export interface CodeParrainageType {
+    inputRefs: React.MutableRefObject<(HTMLInputElement | null)[]>;
+    onSubmitForm: (e: React.FormEvent) => Promise<void>;
+    getCurrentCode: (onCodeFetch: (code: string) => void) => () => void;
+    fetchCurrentCode: () => string;
 }

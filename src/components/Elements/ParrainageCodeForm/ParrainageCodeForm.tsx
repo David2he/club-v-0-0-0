@@ -1,16 +1,18 @@
 import "./ParainageCode.scss";
+
 import { ParraingeFormProps } from "../../../types/Types";
-import { useCodeParrainageHandler } from "../../../utils/useCodeParrainageHandler";
-import { Toast } from "../../Blocks/Toast/Toast";
-import { useState } from "react";
-import { toastType } from "../../../types/Types";
+import { useCodeParrainageHandler } from "../../../utils/CheckCodeParrainage/useCodeParrainageHandler";
+import { useEffect } from "react";
 
 export const ParrainageCodeForm = ({
     goToUrl,
     loginType,
+    onCodeFetch,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
-    const [showToast, setShowToast] = useState<toastType>({ type: "", message: "", key: 0 });
-    const { inputRefs, onSubmitForm } = useCodeParrainageHandler(goToUrl, setShowToast);
+    const { inputRefs, onSubmitForm, getCurrentCode } = useCodeParrainageHandler(
+        goToUrl,
+        onCodeFetch
+    );
 
     const setRef = (el: any, index: number) => {
         inputRefs.current[index] = el;
@@ -39,10 +41,43 @@ export const ParrainageCodeForm = ({
         );
     };
 
+    //// OLD WAY TO USE PARRAINAGE CODE IN REGISTER PAGE
+    // const oldRenderRegister = () => {
+    //     return (
+    //         <>
+    //             <form onSubmit={onSubmitForm} className="registerFormContainer formParrainage">
+    //                 <div className="boxFormRegisterContainer">
+    //                     <p>Code parrainage</p>
+    //                     <div className="inputCodeContainer">
+    //                         {[...Array(6)].map((_, index) => (
+    //                             <input
+    //                                 key={index}
+    //                                 name="code"
+    //                                 placeholder="*"
+    //                                 required
+    //                                 maxLength={1}
+    //                                 className="code-input"
+    //                                 ref={(el) => (inputRefs.current[index] = el)}
+    //                             />
+    //                         ))}
+    //                     </div>
+    //                 </div>
+    //                 <input type="submit" value="S'enrengistrer" className="submitButton" />
+    //             </form>
+    //             <div className="toastContainer"></div>
+    //         </>
+    //     );
+    // };
+
     const renderRegister = () => {
+        useEffect(() => {
+            if (!onCodeFetch) return;
+            const cleanup = getCurrentCode(onCodeFetch);
+            return cleanup;
+        }, [onCodeFetch]);
         return (
             <>
-                <form onSubmit={onSubmitForm} className="formContainer formParrainage">
+                <form className="registerFormContainer formParrainage">
                     <div className="boxFormRegisterContainer">
                         <p>Code parrainage</p>
                         <div className="inputCodeContainer">
@@ -59,18 +94,10 @@ export const ParrainageCodeForm = ({
                             ))}
                         </div>
                     </div>
-                    <input type="submit" value="S'enrengistrer" className="submitButton" />
                 </form>
-                <div className="toastContainer">
-                    <Toast
-                        typeLog={showToast.type}
-                        message={showToast.message}
-                        key={showToast.key}
-                    />
-                </div>
             </>
         );
     };
 
-    return <div>{loginType === "register" ? renderLogin() : renderRegister()}</div>;
+    return <div>{loginType === "register" ? renderRegister() : renderLogin()}</div>;
 };

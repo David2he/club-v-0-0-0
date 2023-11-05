@@ -5,11 +5,9 @@ import { useStorageServices } from "../../../services/storages/useStorageService
 import { Input } from "../../Elements/Input/Input";
 import { handlePostData } from "../../../services/api";
 import { LoginFormDataToSendType } from "../../../types/Types";
-
 import style from "./FormLogin.module.scss";
 
 export const FormLogin = () => {
-    const history = useHistory();
     const { setStorageItem, getStorageItem } = useStorageServices();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const auth = useAuth();
