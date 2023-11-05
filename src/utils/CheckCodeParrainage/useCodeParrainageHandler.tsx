@@ -1,8 +1,17 @@
 import { useRef, useEffect } from "react";
 import { Browser } from "@capacitor/browser";
 import { useHistory } from "react-router";
-
-export const useCodeParrainageHandler = (goToUrl?: string) => {
+interface CodeParrainageHandler {
+    inputRefs: React.MutableRefObject<(HTMLInputElement | null)[]>;
+    onSubmitForm: (e: React.FormEvent) => Promise<void>;
+    getCurrentCode: (onCodeFetch: (code: string) => void) => () => void;
+    fetchCurrentCode: () => string;
+    onCodeFetch: (code: string) => void;
+}
+export const useCodeParrainageHandler = (
+    goToUrl?: string,
+    onCodeFetch?: (code: string) => void
+): CodeParrainageHandler => {
     const history = useHistory();
     const currentUrl = new URL(window.location.href);
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -15,15 +24,43 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
             if (input && codeArray[index]) {
                 input.value = codeArray[index];
             }
+            firstRender.current = false;
         });
+        if (onCodeFetch) {
+            onCodeFetch(codeFromUrl); // Appeler onCodeFetch ici avec le code de l'URL
+        }
     }
+    const fetchCurrentCode = () => {
+        const code = inputRefs.current.map((input) => input?.value).join("");
+        return code;
+    };
+    const getCurrentCode = (onCodeFetch: any) => {
+        const handleInputChange = () => {
+            const code = inputRefs.current.map((input) => input?.value).join("");
+            console.log(code);
+            onCodeFetch(code);
+        };
+
+        inputRefs.current.forEach((input) => {
+            if (input) {
+                input.addEventListener("input", handleInputChange);
+            }
+        });
+
+        return () => {
+            inputRefs.current.forEach((input) => {
+                if (input) {
+                    input.removeEventListener("input", handleInputChange);
+                }
+            });
+        };
+    };
 
     const onSubmitForm = async (e: React.FormEvent) => {
         e.preventDefault();
-
         const code = inputRefs.current.map((input) => input?.value).join("");
         const openInBrowser = async (currentUrl: URL) => {
-            const newUrl = currentUrl.origin + "/register";
+            const newUrl = currentUrl.origin + "/RegisterForm";
             await Browser.open({
                 url: `${newUrl}?code=${code}`,
             });
@@ -78,5 +115,7 @@ export const useCodeParrainageHandler = (goToUrl?: string) => {
     return {
         inputRefs,
         onSubmitForm,
+        getCurrentCode,
+        fetchCurrentCode, // Exposez la nouvelle fonction
     };
 };

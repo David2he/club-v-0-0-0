@@ -19,6 +19,7 @@ export type ButtonSubmitProps = {
 export type ParraingeFormProps = {
     goToUrl?: string;
     loginType?: string;
+    onCodeFetch?: (code: string) => void;
 };
 
 export type toastProps = {
@@ -32,12 +33,7 @@ export type registerFormDataStateProps = {
     fName: string;
     name: string;
     phone: string;
-};
-
-export type toastType = {
-    type: string;
-    message: string;
-    key?: number;
+    parrainageCode: string;
 };
 
 export type RegisterFormDataToSendType = {
@@ -52,6 +48,12 @@ export type RegisterFormDataToSendType = {
     isAdmin?: boolean;
     isBrandAdmin?: boolean;
     nonce: string;
+};
+
+export type toastType = {
+    type: string;
+    message: string;
+    key?: number;
 };
 
 export type LoginFormDataToSendType = {

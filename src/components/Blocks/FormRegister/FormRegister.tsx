@@ -9,8 +9,9 @@ import {
 } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
+import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
 
-export const FormRegister = (nonce: string) => {
+export const FormRegister = (parrainageCode: string) => {
     const [step, setStep] = useState<number>(0);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -19,6 +20,7 @@ export const FormRegister = (nonce: string) => {
         fName: "",
         name: "",
         phone: "",
+        parrainageCode: "",
     });
 
     const postRegisterForm = async () => {
@@ -32,7 +34,7 @@ export const FormRegister = (nonce: string) => {
                     birthday: "2023-08-24T08:41:26.978Z",
                     phoneNumber: formData.phone,
                 },
-                nonce: "035615",
+                nonce: formData.parrainageCode,
             };
 
             const response = await handlePostData("http://localhost:8000/api/users", {
@@ -54,25 +56,27 @@ export const FormRegister = (nonce: string) => {
     const handleFormRegister = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
-        if (!emailRegex.test(formData.email)) {
-            setshowToast({
-                type: "error",
-                message: "L'adresse e-mail n'est pas valide",
-                key: Date.now(),
-            });
-            return;
-        }
-
-        if (formData.password.length < 6) {
-            setshowToast({
-                type: "error",
-                message: "Le mot de passe doit contenir 6 caractères",
-                key: Date.now(),
-            });
-            return;
-        }
-
         if (step > 0) {
+            if (!emailRegex.test(formData.email)) {
+                setshowToast({
+                    type: "error",
+                    message: "L'adresse e-mail n'est pas valide",
+                    key: Date.now(),
+                });
+                return;
+            }
+
+            if (formData.password.length < 6) {
+                setshowToast({
+                    type: "error",
+                    message: "Le mot de passe doit contenir 6 caractères",
+                    key: Date.now(),
+                });
+                return;
+            }
+        }
+
+        if (step > 1) {
             if (formData.fName.length < 2 || formData.name.length < 2) {
                 setshowToast({
                     type: "error",
@@ -91,13 +95,15 @@ export const FormRegister = (nonce: string) => {
             }
         }
 
-        if (step === 2) {
+        if (step === 3) {
             postRegisterForm();
         }
-        if (step < 2) {
+        if (step < 3) {
+            console.log(step);
+            console.log(formData);
             setStep((prevState) => prevState + 1);
         } else {
-            setStep(2);
+            setStep(3);
         }
     };
 
@@ -121,6 +127,19 @@ export const FormRegister = (nonce: string) => {
     };
 
     // STEP 0
+    const handleFormParrainageCode = () => {
+        const getCode = (code?: string) => {
+            console.log(code, "code");
+            if (!code) return;
+            setFormData((prevState) => ({
+                ...prevState,
+                parrainageCode: code,
+            }));
+        };
+        return <ParrainageCodeForm loginType="register" onCodeFetch={getCode} />;
+    };
+
+    // STEP 1
     const emailPasswordForm = () => {
         return (
             <>
@@ -158,7 +177,7 @@ export const FormRegister = (nonce: string) => {
         );
     };
 
-    // STEP 1
+    // STEP 2
     const nameForm = () => {
         return (
             <>
@@ -211,8 +230,6 @@ export const FormRegister = (nonce: string) => {
         );
     };
 
-    // STEP 2
-
     // STEP 3
     const lastCheckForm = () => {
         return (
@@ -239,14 +256,24 @@ export const FormRegister = (nonce: string) => {
             </>
         );
     };
+    let renderedForm;
+    if (step === 0) {
+        renderedForm = handleFormParrainageCode();
+    } else if (step === 1) {
+        renderedForm = emailPasswordForm();
+    } else if (step === 2) {
+        renderedForm = nameForm();
+    } else if (step === 3) {
+        renderedForm = lastCheckForm();
+    }
 
     return (
         <div className={style.formRegisterContainer}>
             <div className={style.inputContainer}>
                 <div className={style.loadingBar}>
-                    <span style={{ transform: `scaleX(${step * 50}%)` }}></span>
+                    <span style={{ transform: `scaleX(${step * 33.33}%)` }}></span>
                 </div>
-                {step === 0 ? emailPasswordForm() : step === 1 ? nameForm() : lastCheckForm()}
+                {renderedForm}
             </div>
             <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
             <div className={style.toastContainer}>
