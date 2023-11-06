@@ -1,0 +1,20 @@
+{
+    "0": {
+        "vendorName": "Foot Korner",
+        "type": "vendor",
+        "typeOfGoods": ["clothing", "shoes", "sports accessories"],
+        "vendorDescription": "Foot Korner est le rendez-vous incontournable des amateurs de sport à la recherche de vêtements, chaussures et accessoires de marques reconnues comme Nike, Adidas et Asics."
+    },
+    "1": {
+        "vendorName": "Sandro",
+        "type": "brand",
+        "typeOfGoods": ["clothing", "shoes", "fashion accessories"],
+        "vendorDescription": "Sandro est synonyme d'élégance à la française, offrant des collections de prêt-à-porter haut de gamme pour hommes et femmes qui allient modernité et sophistication classique."
+    },
+    "2": {
+        "vendorName": "Devialet",
+        "type": "brand",
+        "typeOfGoods": ["high-end sound systems", "speakers", "audio technology"],
+        "vendorDescription": "Devialet est à la pointe de l'innovation audio avec ses enceintes et systèmes sonores de haute fidélité, conçus pour offrir une expérience d'écoute inégalée grâce à des technologies acoustiques révolutionnaires."
+    }
+}

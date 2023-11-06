@@ -14,6 +14,7 @@ export type InputProps = {
 export type ButtonSubmitProps = {
     text: string;
     callFunctionOnClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => any;
+    size?: string;
 };
 
 export type ParraingeFormProps = {
