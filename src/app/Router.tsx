@@ -12,7 +12,7 @@ import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 
 const AppRouter: React.FC = () => {
     return (
-        <IonRouterOutlet>
+        <IonRouterOutlet animated={false}>
             <Route exact path='/home' component={Home} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/RegisterForm' component={RegisterForm} />
