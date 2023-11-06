@@ -6,6 +6,7 @@ import Home from "../pages/Home";
 import Register from "../pages/Register/Register";
 import RegisterForm from "../pages/RegisterForm/RegisterForm";
 import HomePageMenber from "../pages/HomePageMenber/HomePageMenber";
+import Brand from "../pages/Brand/Brand";
 
 import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 
@@ -25,6 +26,12 @@ const AppRouter: React.FC = () => {
                 exact
                 path="/"
                 authenticatedComponent={HomePageMenber}
+                unauthenticatedComponent={Home}
+            />
+            <ProtectedRoute
+                exact
+                path="/Brand"
+                authenticatedComponent={Brand}
                 unauthenticatedComponent={Home}
             />
         </IonRouterOutlet>
