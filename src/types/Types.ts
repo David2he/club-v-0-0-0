@@ -73,12 +73,17 @@ export interface ProtectedRouteProps extends RouteProps {
     authenticatedComponent: React.ComponentType<any>;
     unauthenticatedComponent: React.ComponentType<any>;
 }
+
+export interface UserType {
+    token: string;
+    email: string;
+}
 export interface AuthContextType {
     isAuthenticated: boolean;
-    user: any;
+    user: UserType | null;
     login: () => void;
     logout: () => void;
-    updateUser: (token: string) => void;
+    updateUser: () => void;
     checkToken: () => void;
 }
 
