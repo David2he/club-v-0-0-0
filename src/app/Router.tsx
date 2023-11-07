@@ -12,18 +12,28 @@ import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 
 const AppRouter: React.FC = () => {
     return (
-        <IonRouterOutlet animated={false}>
-            <Route exact path='/home' component={Home} />
-            <Route exact path='/register' component={Register} />
-            <Route exact path='/RegisterForm' component={RegisterForm} />
+        <IonRouterOutlet>
+            <Route exact path="/home" component={Home} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/RegisterForm" component={RegisterForm} />
             <ProtectedRoute
                 exact
-                path='/homePageMenber'
+                path="/homePageMenber"
                 authenticatedComponent={HomePageMenber}
                 unauthenticatedComponent={Home}
             />
-            <ProtectedRoute exact path='/' authenticatedComponent={HomePageMenber} unauthenticatedComponent={Home} />
-            <ProtectedRoute exact path='/Brand/:id' authenticatedComponent={Brand} unauthenticatedComponent={Home} />
+            <ProtectedRoute
+                exact
+                path="/"
+                authenticatedComponent={HomePageMenber}
+                unauthenticatedComponent={Home}
+            />
+            <ProtectedRoute
+                exact
+                path="/Brand/:id"
+                authenticatedComponent={Brand}
+                unauthenticatedComponent={Home}
+            />
         </IonRouterOutlet>
     );
 };

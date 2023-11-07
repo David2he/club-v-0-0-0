@@ -64,7 +64,7 @@ export type LoginFormDataToSendType = {
 
 export type BlockTextProps = {
     title: string;
-    text: string | JSX.Element[] | (() => JSX.Element);
+    text: string | JSX.Element[] | (() => JSX.Element) | ((arg?: string) => JSX.Element);
     closable?: boolean;
     expandable?: boolean;
 };
