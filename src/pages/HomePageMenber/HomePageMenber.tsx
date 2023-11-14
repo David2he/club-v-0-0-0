@@ -22,7 +22,7 @@ const HomePageMenber: React.FC = () => {
                 <HamburguerMenue />
                 <Header />
                 <div>
-                    <BlockText title='Parrainer quelqu’un' text={parraingageJSX} closable={true} expandable={false} />
+                    <BlockText title='Parrainer quelqu’un' text={parraingageJSX} closable={false} expandable={true} />
                     <BlockText
                         title='Comment ca marche '
                         text='Vous disposez d’un ensemble de marque avec des réductions imbattable Il vous suffit de cliquer sur l’une d’elle, d’ajouter ou de créer un compte déjà existant pour la marque sélectionnée puis d’activer le lien entre la promotion et votre compte sur la boutique'

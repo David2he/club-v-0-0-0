@@ -3,7 +3,7 @@ import { BlockText } from "../../Elements/BlockText/BlockText";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 export const DisplayItemsHomePageMenber = () => {
-    const [typeOFdisplay, setTypeOFdisplay] = useState("block");
+    const [typeOFdisplay, setTypeOFdisplay] = useState("line");
     const history = useHistory();
     const displayThemAll = (): JSX.Element => {
         const navigateToBrand = (brandId: number) => {
@@ -32,7 +32,7 @@ export const DisplayItemsHomePageMenber = () => {
                         typeOFdisplay === "block" ? style.containerBlockDisplay : style.containerLineDisplay
                     }`}
                 >
-                    {Array.from(Array(3).keys()).map((item, index) => (
+                    {Array.from(Array(5).keys()).map((item, index) => (
                         <div key={index} className={style.eachCells} onClick={() => navigateToBrand(index)}>
                             <img src={`./assets/Brand/${index}/lineImg.png`} />
                         </div>

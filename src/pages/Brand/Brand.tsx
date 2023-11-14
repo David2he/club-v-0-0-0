@@ -25,46 +25,41 @@ const Brand: React.FC = () => {
 
     const handleActivateVIP = () => {
         console.log("L'email de l'utilisateur est:", userEmail);
-        // Ici, vous pouvez définir ce que vous voulez faire quand le bouton est cliqué
-        // et vous avez accès à l'email de l'utilisateur
+        // cal api route here
     };
     return (
-        <IonPage id="main-content" className="containerMainAPP">
-            <div className="content">
+        <IonPage id='main-content' className='containerMainAPP'>
+            <div className='content'>
                 <HamburguerMenue />
 
                 <Header />
                 <div className={style.bannerImgContainer}>
-                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt="banner" />
+                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt='banner' />
                 </div>
 
                 <div className={style.brandMainInfoContainer}>
-                    <img
-                        className={style.logoImgContainer}
-                        src={`./assets/Brand/${id}/logo.png`}
-                        alt="logo"
-                    />
+                    <img className={style.logoImgContainer} src={`./assets/Brand/${id}/logo.png`} alt='logo' />
                     <h1 className={style.brandName}>{vendorData?.vendorName}</h1>
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
                     />
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
                     />
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
                     />
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
@@ -73,8 +68,8 @@ const Brand: React.FC = () => {
                 <div className={style.activeBrandButtonContainer}>
                     <div className={style.test}>
                         <ButtonSubmit
-                            text="Activer mon pass VIP"
-                            size="large"
+                            text='Activer mon pass VIP'
+                            size='large'
                             callFunctionOnClick={handleActivateVIP}
                         />
                     </div>
