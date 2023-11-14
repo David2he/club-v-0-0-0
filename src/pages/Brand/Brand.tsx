@@ -4,27 +4,32 @@ import { useParams } from "react-router-dom";
 import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { ButtonSubmit } from "../../components/Elements/Button/ButtonSubmit";
-import data from "../../utils/dataTest/data.json";
-import { useStorageServices } from "../../services/storages/useStorageServices";
-import { useEffect, useState } from "react";
 import { handlePostData } from "../../services/api";
+import { useStorageServices } from "../../services/storages/useStorageServices";
+import { Toast } from "../../components/Blocks/Toast/Toast";
+import { useState } from "react";
+import data from "../../utils/dataTest/data.json";
 import style from "./Brand.module.scss";
-
+import { toastType } from "../../types/Types";
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const [userInfo, setUserInfo] = useState<{ email: string; token: string } | null>(null);
+    const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const { id } = useParams<{ id: string }>();
+
     const vendorData = data[id as keyof typeof data];
 
+    const renderToast = (type: string, message: string) => {
+        setshowToast({ type, message, key: Date.now() });
+    };
+
     const handleActivateVIP = async () => {
-        const [email, token] = await Promise.all([
-            getStorageItem("email"),
-            getStorageItem("token"),
-        ]);
+        const [email, token] = await Promise.all([getStorageItem("email"), getStorageItem("token")]);
         setUserInfo({ email, token });
-        console.log(userInfo?.email);
+
         try {
             const response = await handlePostData("http://localhost:8000/api/vendor/1/activate", {
+                /// TODO: change the url ID to the real one
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${userInfo?.token}`,
@@ -33,48 +38,49 @@ const Brand: React.FC = () => {
             });
             if (response.status === 200) {
                 console.log("API call success");
+                renderToast("succes", "votre pass VIP est activé");
             }
         } catch (error) {
             console.error("Erreur lors de l'envoi des données :", error);
+            renderToast("error", `Erreur lors de l'envoi des données ${error}`);
         }
     };
     return (
-        <IonPage id="main-content" className="containerMainAPP">
-            <div className="content">
+        <IonPage id='main-content' className='containerMainAPP'>
+            <div className='content'>
                 <HamburguerMenue />
-
+                {showToast?.type && showToast?.message && (
+                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
+                )}
                 <Header />
                 <div className={style.bannerImgContainer}>
-                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt="banner" />
+                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt='banner' />
                 </div>
 
                 <div className={style.brandMainInfoContainer}>
-                    <img
-                        className={style.logoImgContainer}
-                        src={`./assets/Brand/${id}/logo.png`}
-                        alt="logo"
-                    />
+                    <img className={style.logoImgContainer} src={`./assets/Brand/${id}/logo.png`} alt='logo' />
                     <h1 className={style.brandName}>{vendorData?.vendorName}</h1>
+
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
                     />
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
                     />
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
                     />
                     <BlockText
-                        title="Description"
+                        title='Description'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={true}
@@ -83,8 +89,8 @@ const Brand: React.FC = () => {
                 <div className={style.activeBrandButtonContainer}>
                     <div className={style.test}>
                         <ButtonSubmit
-                            text="Activer mon pass VIP"
-                            size="large"
+                            text='Activer mon pass VIP'
+                            size='large'
                             callFunctionOnClick={handleActivateVIP}
                         />
                     </div>
