@@ -6,9 +6,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-        !!localStorage.getItem("token")
-    );
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem("token"));
 
     const { getStorageItem } = useStorageServices();
     const [user, setUser] = useState<UserType | null>(null);
@@ -21,7 +19,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             }
         };
         autoCheckToken();
-        console.log("isAuthenticated", isAuthenticated);
     }, [getStorageItem]);
 
     const checkToken = async () => {
@@ -34,7 +31,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const updateUser = async () => {
         const token = await getStorageItem("token");
         const email = await getStorageItem("email");
-        
+
         if (token && email) {
             const newUser: UserType = {
                 token: token,
@@ -42,26 +39,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             };
             setUser(newUser);
         } else {
-            console.log("no token or email");
+            // console.log("no token or email");
         }
     };
 
     const login = () => {
-        console.log("login");
         updateUser();
         setIsAuthenticated(true);
-        console.log(isAuthenticated, "isAuthenticated state");
     };
 
     const logout = () => {
-        console.log("logout");
         setIsAuthenticated(false);
     };
 
     return (
-        <AuthContext.Provider
-            value={{ isAuthenticated, user, login, logout, updateUser, checkToken }}
-        >
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout, updateUser, checkToken }}>
             {children}
         </AuthContext.Provider>
     );

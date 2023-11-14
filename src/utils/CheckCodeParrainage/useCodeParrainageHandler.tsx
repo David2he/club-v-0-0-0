@@ -32,7 +32,7 @@ export const useCodeParrainageHandler = (
     const getCurrentCode = (onCodeFetch: any) => {
         const handleInputChange = () => {
             const code = inputRefs.current.map((input) => input?.value).join("");
-            console.log(code);
+
             onCodeFetch(code);
         };
 

@@ -7,6 +7,7 @@ import Register from "../pages/Register/Register";
 import RegisterForm from "../pages/RegisterForm/RegisterForm";
 import HomePageMenber from "../pages/HomePageMenber/HomePageMenber";
 import Brand from "../pages/Brand/Brand";
+import Refferal from "../pages/Refferal/Refferal";
 
 import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 
@@ -24,6 +25,7 @@ const AppRouter: React.FC = () => {
             />
             <ProtectedRoute exact path='/' authenticatedComponent={HomePageMenber} unauthenticatedComponent={Home} />
             <ProtectedRoute exact path='/Brand/:id' authenticatedComponent={Brand} unauthenticatedComponent={Home} />
+            <ProtectedRoute exact path='/Refferral' authenticatedComponent={Refferal} unauthenticatedComponent={Home} />
         </IonRouterOutlet>
     );
 };

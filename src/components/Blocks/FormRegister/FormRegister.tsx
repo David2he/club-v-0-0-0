@@ -39,7 +39,6 @@ export const FormRegister = (parrainageCode: string) => {
                 },
                 body: JSON.stringify(dataToSend),
             });
-            console.log(response);
         } catch (error) {
             setshowToast({
                 type: "error",
@@ -95,7 +94,6 @@ export const FormRegister = (parrainageCode: string) => {
             postRegisterForm();
         }
         if (step < 3) {
-            console.log(step);
             console.log(formData);
             setStep((prevState) => prevState + 1);
         } else {
@@ -125,7 +123,6 @@ export const FormRegister = (parrainageCode: string) => {
     // STEP 0
     const handleFormParrainageCode = () => {
         const getCode = (code?: string) => {
-            console.log(code, "code");
             if (!code) return;
             setFormData((prevState) => ({
                 ...prevState,

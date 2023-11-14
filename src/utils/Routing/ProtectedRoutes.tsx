@@ -8,17 +8,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     ...rest
 }) => {
     const auth = useAuth();
-    console.log(auth ? auth?.isAuthenticated : "null");
     return (
         <Route
             {...rest}
-            render={(props) =>
-                auth?.isAuthenticated ? (
-                    <AuthComponent {...props} />
-                ) : (
-                    <UnauthComponent {...props} />
-                )
-            }
+            render={(props) => (auth?.isAuthenticated ? <AuthComponent {...props} /> : <UnauthComponent {...props} />)}
         />
     );
 };

@@ -37,7 +37,6 @@ const Brand: React.FC = () => {
                 body: JSON.stringify({ username: userInfo?.email }),
             });
             if (response.status === 200) {
-                console.log("API call success");
                 renderToast("succes", "votre pass VIP est activé");
             }
         } catch (error) {
