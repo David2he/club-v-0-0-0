@@ -27,9 +27,9 @@ const Brand: React.FC = () => {
             const response = await handlePostData("http://localhost:8000/api/vendor/1/activate", {
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2OTk5NjIyOTcsImV4cCI6MTY5OTk2NTg5Nywicm9sZXMiOlsiUk9MRV9VU0VSIiwiUk9MRV9NRU1CRVJfSU5BQ1RJVkUiXSwiZW1haWwiOiJ0ZXN0NDVAZ21haWwuY29tIn0.QVQu2lxSfhddAQU2miXYcyutIRLifsyFFBjEQI2emPFL74EWLYe0wYU8aCDF4Z2_e8qqIFg4qwQiVrXZ5svP0UWMGHQ5cn2rjvc2eK5cYtB3nIacNobLfkcl49aQt0nbjCdaFzDfHsIo8wSxwSzIWbUcT9MC1hzScQ3xZo4sPWqESdR8zdF1NDnLFV-fPsZuM7eJu3vmpTyANPqaW8LlK_W6CYJaRY4vcavcHhn4Eslv_torhJYADIqGMCN9O1VyEx5tJ08kmlbbUgDHDtSHyj9-0dBVHpJ5w5ORV-tZQr4gaS0o56CaWmIbide3u0fqXZVfzNyqRkWKI3qlADtiRQ"}`,
+                    Authorization: `Bearer ${userInfo?.token}`,
                 },
-                body: JSON.stringify({ username: "saladeTomateOignon@gmail.com" }),
+                body: JSON.stringify({ username: userInfo?.email }),
             });
             if (response.status === 200) {
                 console.log("API call success");
