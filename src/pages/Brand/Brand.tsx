@@ -26,15 +26,15 @@ const Brand: React.FC = () => {
     const handleActivateVIP = async () => {
         const [email, token] = await Promise.all([getStorageItem("email"), getStorageItem("token")]);
         setUserInfo({ email, token });
-
+        console.log(email, token);
         try {
             const response = await handlePostData("http://localhost:8000/api/vendor/1/activate", {
                 /// TODO: change the url ID to the real one
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${userInfo?.token}`,
+                    Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ username: userInfo?.email }),
+                body: JSON.stringify({ username: email }),
             });
             if (response.status === 200) {
                 renderToast("succes", "votre pass VIP est activé");

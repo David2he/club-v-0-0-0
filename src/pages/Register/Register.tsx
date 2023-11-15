@@ -4,12 +4,12 @@ import { ParrainageCodeForm } from "../../components/Elements/ParrainageCodeForm
 
 const Register: React.FC = () => {
     return (
-        <IonPage id="main-content" className="container">
-            <div className="headerContainer">
+        <IonPage id='main-content' className='container'>
+            <div className='headerContainer'>
                 <Header />
             </div>
-            <div className="content">
-                <ParrainageCodeForm loginType="register" />
+            <div className='content'>
+                <ParrainageCodeForm loginType='register' />
             </div>
         </IonPage>
     );

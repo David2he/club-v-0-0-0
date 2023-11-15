@@ -4,7 +4,6 @@ import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/Hamburge
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import "./Refferal.scss";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
-import { Input } from "../../components/Elements/Input/Input";
 
 const Refferal: React.FC = () => {
     const getRefferalCode = (): JSX.Element => {

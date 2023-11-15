@@ -2,7 +2,7 @@
 .container {
     width: 90%;
     padding: 0.5rem;
-    margin: 2rem auto;
+    margin: 2rem auto 1rem auto;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 
     .titleANDCrossContainer {
@@ -18,12 +18,15 @@
     .contentContainer {
         transition: height 0.3s ease-in-out;
         overflow: hidden;
+        padding-top: 0.4rem;
     }
 
     .title {
         @include Ltext_04;
         color: var(--ion-text-color);
         font-size: 1.4rem;
+
+        margin: 0;
     }
     .text {
         @include Mtext_03;

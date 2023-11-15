@@ -7,7 +7,7 @@ import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
 import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
 
-export const FormRegister = (parrainageCode: string) => {
+export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
@@ -39,6 +39,13 @@ export const FormRegister = (parrainageCode: string) => {
                 },
                 body: JSON.stringify(dataToSend),
             });
+            if (response.status === 200) {
+                setshowToast({
+                    type: "succes",
+                    message: "Création de compte réussi",
+                    key: Date.now(),
+                });
+            }
         } catch (error) {
             setshowToast({
                 type: "error",

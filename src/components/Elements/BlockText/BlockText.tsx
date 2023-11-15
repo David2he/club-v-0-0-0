@@ -1,9 +1,9 @@
 import style from "./BlockText.module.scss";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { BlockTextProps } from "../../../types/Types";
 export const BlockText = ({ title, text, closable, expandable }: BlockTextProps) => {
     const [isOpen, setIsOpen] = useState(true);
-    const [isUnfolded, setIsUnfolded] = useState(true);
+    const [isUnfolded, setIsUnfolded] = useState(false);
     const contentRef = useRef<HTMLDivElement>(null);
 
     if (!isOpen) return null;
@@ -23,6 +23,17 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
             setIsUnfolded((prevIsDeploy) => !prevIsDeploy);
         }
     };
+
+    useEffect(() => {
+        const content = contentRef.current;
+        if (content && expandable) {
+            if (isUnfolded) {
+                content.style.height = `${content.scrollHeight}px`;
+            } else {
+                content.style.height = "0px";
+            }
+        }
+    }, [isUnfolded]);
 
     return (
         <div className={style.container}>
