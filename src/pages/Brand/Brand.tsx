@@ -24,7 +24,10 @@ const Brand: React.FC = () => {
     };
 
     const handleActivateVIP = async () => {
-        const [email, token] = await Promise.all([getStorageItem("email"), getStorageItem("token")]);
+        const [email, token] = await Promise.all([
+            getStorageItem("email"),
+            getStorageItem("token"),
+        ]);
         setUserInfo({ email, token });
         console.log(email, token);
         try {
@@ -45,51 +48,41 @@ const Brand: React.FC = () => {
         }
     };
     return (
-        <IonPage id='main-content' className='containerMainAPP'>
-            <div className='content'>
+        <IonPage id="main-content" className="containerMainAPP">
+            <div className="content">
                 <HamburguerMenue />
                 {showToast?.type && showToast?.message && (
-                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
+                    <Toast
+                        typeLog={showToast.type}
+                        message={showToast.message}
+                        key={showToast.key}
+                    />
                 )}
                 <Header />
                 <div className={style.bannerImgContainer}>
-                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt='banner' />
+                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt="banner" />
                 </div>
 
                 <div className={style.brandMainInfoContainer}>
-                    <img className={style.logoImgContainer} src={`./assets/Brand/${id}/logo.png`} alt='logo' />
+                    <img
+                        className={style.logoImgContainer}
+                        src={`./assets/Brand/${id}/logo.png`}
+                        alt="logo"
+                    />
                     <h1 className={style.brandName}>{vendorData?.vendorName}</h1>
 
                     <BlockText
-                        title='Description'
+                        title="Info de la marque"
                         text={vendorData.vendorDescription}
                         closable={false}
-                        expandable={true}
-                    />
-                    <BlockText
-                        title='Description'
-                        text={vendorData.vendorDescription}
-                        closable={false}
-                        expandable={true}
-                    />
-                    <BlockText
-                        title='Description'
-                        text={vendorData.vendorDescription}
-                        closable={false}
-                        expandable={true}
-                    />
-                    <BlockText
-                        title='Description'
-                        text={vendorData.vendorDescription}
-                        closable={false}
-                        expandable={true}
+                        expandable={false}
                     />
                 </div>
                 <div className={style.activeBrandButtonContainer}>
                     <div className={style.test}>
                         <ButtonSubmit
-                            text='Activer mon pass VIP'
-                            size='large'
+                            text="Activer mon pass VIP"
+                            size="large"
                             callFunctionOnClick={handleActivateVIP}
                         />
                     </div>
