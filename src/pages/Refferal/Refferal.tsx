@@ -14,14 +14,29 @@ const Refferal: React.FC = () => {
         );
     };
     return (
-        <IonPage id='main-content' className='containerMainAPP'>
-            <div className='content'>
+        <IonPage id="main-content" className="containerMainAPP">
+            <div className="content">
                 <HamburguerMenue />
                 <Header />
                 <div>
-                    <BlockText title='Code Parrainage ' text={getRefferalCode} closable={false} expandable={false} />
-                    <BlockText title='Code Parrainage ' text={getRefferalCode} closable={false} expandable={false} />
-                    <BlockText title='Code Parrainage ' text={getRefferalCode} closable={false} expandable={false} />
+                    <BlockText
+                        title="Code Parrainage "
+                        text={getRefferalCode}
+                        closable={false}
+                        expandable={false}
+                    />
+                    <BlockText
+                        title="Code Parrainage "
+                        text={getRefferalCode}
+                        closable={false}
+                        expandable={false}
+                    />
+                    <BlockText
+                        title="Code Parrainage "
+                        text={getRefferalCode}
+                        closable={false}
+                        expandable={false}
+                    />
                 </div>
             </div>
         </IonPage>

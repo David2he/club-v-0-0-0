@@ -13,7 +13,7 @@ import style from "./Brand.module.scss";
 import { toastType } from "../../types/Types";
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
-    const [userInfo, setUserInfo] = useState<{ email: string; token: string } | null>(null);
+
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const { id } = useParams<{ id: string }>();
 
@@ -28,16 +28,22 @@ const Brand: React.FC = () => {
             getStorageItem("email"),
             getStorageItem("token"),
         ]);
-        setUserInfo({ email, token });
-        console.log(email, token);
         try {
             const response = await handlePostData("http://localhost:8000/api/vendor/1/activate", {
-                /// TODO: change the url ID to the real one
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify({ username: email }),
+                body: JSON.stringify({
+                    email: email,
+                    nom: "test",
+                    prenom: "test",
+                    civilite: "civ",
+                    pays: "france",
+                    ville: "ville",
+                    codePostal: "1111",
+                    adresse: "adresse",
+                }),
             });
             if (response.status === 200) {
                 renderToast("succes", "votre pass VIP est activé");
