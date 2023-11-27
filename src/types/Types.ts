@@ -34,7 +34,7 @@ export type registerFormDataStateProps = {
     fName: string;
     name: string;
     phone: string;
-    parrainageCode: string;
+    parrainageCode: string | null;
 };
 
 export type RegisterFormDataToSendType = {

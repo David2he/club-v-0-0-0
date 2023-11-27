@@ -1,15 +1,10 @@
 import axios from "axios";
 
 export const handleGetData = async (url: string, options?: any): Promise<any> => {
-    try {
-        const response = await axios.get(url, {
-            headers: options.headers,
-        });
-        return response.data;
-    } catch (error) {
-        console.error("Erreur lors de la récupération des données :", error);
-        throw error;
-    }
+    const response = await axios.get(url, {
+        headers: options.headers,
+    });
+    return response;
 };
 
 export const handlePostData = async (url: string, options: any): Promise<any> => {

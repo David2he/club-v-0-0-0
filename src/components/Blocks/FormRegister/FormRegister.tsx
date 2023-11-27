@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import style from "./FormRegister.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
@@ -9,6 +9,7 @@ import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/Parrainage
 
 export const FormRegister = () => {
     const [step, setStep] = useState<number>(0);
+    const currentUrl = new URL(window.location.href);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<registerFormDataStateProps>({
         email: "",
@@ -16,7 +17,7 @@ export const FormRegister = () => {
         fName: "",
         name: "",
         phone: "",
-        parrainageCode: "",
+        parrainageCode: currentUrl.searchParams.get("code"),
     });
 
     const postRegisterForm = async () => {
@@ -30,7 +31,7 @@ export const FormRegister = () => {
                     birthday: "2023-08-24T08:41:26.978Z",
                     phoneNumber: formData.phone,
                 },
-                nonce: formData.parrainageCode,
+                nonce: formData.parrainageCode ? formData.parrainageCode : "",
             };
 
             const response = await handlePostData("http://localhost:8000/api/users", {
@@ -39,7 +40,9 @@ export const FormRegister = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
-            if (response.status === 200) {
+            console.log(response.status);
+            if (response.status === 201) {
+                console.log(response.status);
                 setshowToast({
                     type: "succes",
                     message: "Création de compte réussi",
@@ -58,7 +61,7 @@ export const FormRegister = () => {
     const handleFormRegister = () => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
-        if (step > 0) {
+        if (step === 0) {
             if (!emailRegex.test(formData.email)) {
                 setshowToast({
                     type: "error",
@@ -78,7 +81,7 @@ export const FormRegister = () => {
             }
         }
 
-        if (step > 1) {
+        if (step >= 1) {
             if (formData.fName.length < 2 || formData.name.length < 2) {
                 setshowToast({
                     type: "error",
@@ -97,14 +100,14 @@ export const FormRegister = () => {
             }
         }
 
-        if (step === 3) {
+        if (step === 2) {
             postRegisterForm();
         }
-        if (step < 3) {
+        if (step < 2) {
             console.log(formData);
             setStep((prevState) => prevState + 1);
         } else {
-            setStep(3);
+            setStep(2);
         }
     };
 
@@ -128,16 +131,16 @@ export const FormRegister = () => {
     };
 
     // STEP 0
-    const handleFormParrainageCode = () => {
-        const getCode = (code?: string) => {
-            if (!code) return;
-            setFormData((prevState) => ({
-                ...prevState,
-                parrainageCode: code,
-            }));
-        };
-        return <ParrainageCodeForm loginType='register' onCodeFetch={getCode} />;
-    };
+    // const handleFormParrainageCode = () => {
+    //     const getCode = (code?: string) => {
+    //         if (!code) return;
+    //         setFormData((prevState) => ({
+    //             ...prevState,
+    //             parrainageCode: code,
+    //         }));
+    //     };
+    //     return <ParrainageCodeForm loginType='register' onCodeFetch={getCode} />;
+    // };
 
     // STEP 1
     const emailPasswordForm = () => {
@@ -258,15 +261,12 @@ export const FormRegister = () => {
     };
     let renderedForm;
     if (step === 0) {
-        renderedForm = handleFormParrainageCode();
-    } else if (step === 1) {
         renderedForm = emailPasswordForm();
-    } else if (step === 2) {
+    } else if (step === 1) {
         renderedForm = nameForm();
-    } else if (step === 3) {
+    } else if (step === 2) {
         renderedForm = lastCheckForm();
     }
-
     return (
         <div className={style.formRegisterContainer}>
             <div className={style.inputContainer}>
