@@ -1,51 +1,43 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useStorageServices } from "../storages/useStorageServices";
 import { AuthContextType, UserType } from "../../types/Types";
+import { decodeToken } from "react-jwt";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem("token"));
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
+        !!localStorage.getItem("token")
+    );
 
     const { getStorageItem } = useStorageServices();
     const [user, setUser] = useState<UserType | null>(null);
     useEffect(() => {
-        const autoCheckToken = async () => {
-            const token = await getStorageItem("token");
-
-            if (token) {
-                setIsAuthenticated(true);
-            }
-        };
         autoCheckToken();
+        getInfoUser();
     }, [getStorageItem]);
 
-    const checkToken = async () => {
+    const login = () => {
+        setIsAuthenticated(true);
+    };
+
+    const autoCheckToken = async () => {
         const token = await getStorageItem("token");
         if (token) {
             setIsAuthenticated(true);
         }
     };
-
-    const updateUser = async () => {
+    const getInfoUser = async () => {
         const token = await getStorageItem("token");
-        const email = await getStorageItem("email");
-
-        if (token && email) {
-            const newUser: UserType = {
-                token: token,
-                email: email,
-            };
-            setUser(newUser);
-        } else {
-            // console.log("no token or email");
+        if (token) {
+            try {
+                let decoded = decodeToken(token);
+                console.log(decoded);
+            } catch (error) {
+                console.error("Erreur lors du décodage du token", error);
+            }
         }
-    };
-
-    const login = () => {
-        updateUser();
-        setIsAuthenticated(true);
     };
 
     const logout = () => {
@@ -53,7 +45,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, user, login, logout, updateUser, checkToken }}>
+        <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );
