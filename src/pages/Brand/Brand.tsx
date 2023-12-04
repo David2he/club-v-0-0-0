@@ -11,12 +11,12 @@ import { useState } from "react";
 import data from "../../utils/dataTest/data.json";
 import style from "./Brand.module.scss";
 import { toastType } from "../../types/Types";
+import { useAuth } from "../../services/contexts/AuthContext";
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
-
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const { id } = useParams<{ id: string }>();
-
+    const auth = useAuth();
     const vendorData = data[id as keyof typeof data];
 
     const renderToast = (type: string, message: string) => {
@@ -28,23 +28,29 @@ const Brand: React.FC = () => {
             getStorageItem("email"),
             getStorageItem("token"),
         ]);
+
+        console.log(email, token);
+        console.log(auth?.user);
         try {
-            const response = await handlePostData("http://localhost:8000/api/vendor/1/activate", {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-                body: JSON.stringify({
-                    email: email,
-                    nom: "test",
-                    prenom: "test",
-                    civilite: "civ",
-                    pays: "france",
-                    ville: "ville",
-                    codePostal: "1111",
-                    adresse: "adresse",
-                }),
-            });
+            const response = await handlePostData(
+                "http://51.15.233.181:8000/api/vendor/1/activate",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        email: email,
+                        nom: "test",
+                        prenom: "test",
+                        civilite: "civ",
+                        pays: "france",
+                        ville: "ville",
+                        codePostal: "1111",
+                        adresse: "adresse",
+                    }),
+                }
+            );
             if (response.status === 200) {
                 renderToast("succes", "votre pass VIP est activé");
             }

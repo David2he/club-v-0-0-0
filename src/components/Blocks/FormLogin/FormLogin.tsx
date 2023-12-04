@@ -41,7 +41,7 @@ export const FormLogin = () => {
                 password: formData.password,
             };
 
-            const response = await handlePostData("http://localhost:8000/api/login", {
+            const response = await handlePostData("http://51.15.233.181:8000/api/login", {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -62,9 +62,13 @@ export const FormLogin = () => {
 
     return (
         <>
-            <form id='container' className={style.formContainer} onSubmit={handleSubmit}>
+            <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
                 {showToast?.type && showToast?.message && (
-                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
+                    <Toast
+                        typeLog={showToast.type}
+                        message={showToast.message}
+                        key={showToast.key}
+                    />
                 )}
                 <div className={style.inputContainer}>
                     <Input
@@ -72,26 +76,26 @@ export const FormLogin = () => {
                         altIcon={"iconMail"}
                         placeholder={"Mail"}
                         labelType={"email"}
-                        name='email'
+                        name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                     <Input
                         iconURL={"assets/iconInput/password.svg"}
                         altIcon={"iconLock"}
                         placeholder={"Mot de passe"}
                         labelType={"password"}
-                        name='password'
+                        name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                 </div>
-                <a href='#' className={style.link}>
+                <a href="#" className={style.link}>
                     mot de passe oublié ?
                 </a>
-                <input type='submit' value='Se connecter' className={style.submitButton}></input>
+                <input type="submit" value="Se connecter" className={style.submitButton}></input>
             </form>
         </>
     );

@@ -34,7 +34,7 @@ export type registerFormDataStateProps = {
     fName: string;
     name: string;
     phone: string;
-    parrainageCode: string;
+    parrainageCode: string | null;
 };
 
 export type RegisterFormDataToSendType = {
@@ -83,8 +83,6 @@ export interface AuthContextType {
     user: UserType | null;
     login: () => void;
     logout: () => void;
-    updateUser: () => void;
-    checkToken: () => void;
 }
 
 export type RedirectProps = {
@@ -96,4 +94,9 @@ export interface CodeParrainageType {
     onSubmitForm: (e: React.FormEvent) => Promise<void>;
     getCurrentCode: (onCodeFetch: (code: string) => void) => () => void;
     fetchCurrentCode: () => string;
+}
+
+export interface MyToken {
+    name: string;
+    exp: number;
 }
