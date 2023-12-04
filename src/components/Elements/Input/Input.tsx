@@ -14,13 +14,15 @@ export const Input = ({
     return (
         <>
             <div className={`${type === "classic" ? style.inputBasic : style.inputSearch}`}>
-                <label htmlFor={labelType}>{iconURL && altIcon && <img src={iconURL} alt={altIcon} />}</label>
+                <label htmlFor={labelType}>
+                    {iconURL && altIcon && <img src={iconURL} alt={altIcon} />}
+                </label>
                 <input
                     className={style.input}
                     type={labelType}
                     placeholder={placeholder}
                     name={name}
-                    value={value}
+                    value={value ?? ""}
                     onChange={onChange}
                 />
             </div>

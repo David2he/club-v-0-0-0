@@ -6,7 +6,7 @@ export type InputProps = {
     labelType?: string;
     placeholder?: string;
     name?: string;
-    value?: string;
+    value?: string | null; // Allow null values
     type?: string;
     onChange?: (event: React.ChangeEvent<HTMLInputElement>) => any;
 };

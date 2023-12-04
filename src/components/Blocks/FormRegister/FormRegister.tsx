@@ -21,7 +21,7 @@ export const FormRegister = () => {
         fName: "",
         name: "",
         phone: "",
-        parrainageCode: currentUrl.searchParams.get("code"),
+        parrainageCode: currentUrl.searchParams.get("code") ?? "",
     });
 
     const postRegisterForm = async () => {
@@ -249,7 +249,7 @@ export const FormRegister = () => {
                             placeholder={`Enter your ${key}`}
                             labelType={handleCorrectCheckForm(key, "type")}
                             name={key}
-                            value={value}
+                            value={value ?? ""}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
                                     ...prevState,
