@@ -38,7 +38,7 @@ export const FormRegister = () => {
                 nonce: formData.parrainageCode ? formData.parrainageCode : "",
             };
 
-            const response = await handlePostData("http://localhost:8000/api/users", {
+            const response = await handlePostData("http://51.15.233.181:8000/api/users", {
                 headers: {
                     "Content-Type": "application/json",
                 },
