@@ -7,15 +7,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
-        !!localStorage.getItem("token")
-    );
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(!!localStorage.getItem("token"));
 
     const { getStorageItem } = useStorageServices();
     const [user, setUser] = useState<UserType | null>(null);
     useEffect(() => {
         autoCheckToken();
-        getInfoUser();
+        // getInfoUser();
     }, [getStorageItem]);
 
     const login = () => {
@@ -40,13 +38,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         }
     };
 
+    const getUserData = async () => {};
+
     const logout = () => {
         setIsAuthenticated(false);
     };
 
-    return (
-        <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
+    return <AuthContext.Provider value={{ isAuthenticated, user, login, logout }}>{children}</AuthContext.Provider>;
 };

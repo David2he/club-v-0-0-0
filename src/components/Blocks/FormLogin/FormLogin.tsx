@@ -51,7 +51,7 @@ export const FormLogin = () => {
             if (response.status === 200) {
                 await setStorageItem("token", response.data.token);
                 await setStorageItem("email", formData.email);
-
+                console.log("token", response.data.token);
                 login();
             }
         } catch (error) {
