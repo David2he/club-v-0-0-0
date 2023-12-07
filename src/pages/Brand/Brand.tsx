@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { ButtonSubmit } from "../../components/Elements/Button/ButtonSubmit";
-import { handlePostData } from "../../services/api";
+import { handleGetData, handlePostData } from "../../services/api";
 import { useStorageServices } from "../../services/storages/useStorageServices";
 import { Toast } from "../../components/Blocks/Toast/Toast";
 import { useState } from "react";
@@ -24,33 +24,33 @@ const Brand: React.FC = () => {
     };
 
     const handleActivateVIP = async () => {
-        const [email, token] = await Promise.all([
-            getStorageItem("email"),
-            getStorageItem("token"),
-        ]);
+        const [email, token] = await Promise.all([getStorageItem("email"), getStorageItem("token")]);
 
         console.log(email, token);
         console.log(auth?.user);
         try {
-            const response = await handlePostData(
-                "http://51.15.233.181:8000/api/vendor/1/activate",
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify({
-                        email: email,
-                        nom: "test",
-                        prenom: "test",
-                        civilite: "civ",
-                        pays: "france",
-                        ville: "ville",
-                        codePostal: "1111",
-                        adresse: "adresse",
-                    }),
-                }
-            );
+            // const getUserData = await handleGetData("http://localhost:8000/api/users", {
+            //     headers: {
+            //         Authorization: `Bearer ${token}`,
+            //     },
+            // });
+            // console.log(getUserData);
+            const response = await handlePostData("http://51.15.233.181:8000/api/vendor/1/activate", {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    email: email,
+                    nom: "test",
+                    prenom: "test",
+                    civilite: "civ",
+                    pays: "france",
+                    ville: "ville",
+                    codePostal: "1111",
+                    adresse: "adresse",
+                }),
+            });
             if (response.status === 200) {
                 renderToast("succes", "votre pass VIP est activé");
             }
@@ -60,31 +60,23 @@ const Brand: React.FC = () => {
         }
     };
     return (
-        <IonPage id="main-content" className="containerMainAPP">
-            <div className="content">
+        <IonPage id='main-content' className='containerMainAPP'>
+            <div className='content'>
                 <HamburguerMenue />
                 {showToast?.type && showToast?.message && (
-                    <Toast
-                        typeLog={showToast.type}
-                        message={showToast.message}
-                        key={showToast.key}
-                    />
+                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
                 )}
                 <Header />
                 <div className={style.bannerImgContainer}>
-                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt="banner" />
+                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt='banner' />
                 </div>
 
                 <div className={style.brandMainInfoContainer}>
-                    <img
-                        className={style.logoImgContainer}
-                        src={`./assets/Brand/${id}/logo.png`}
-                        alt="logo"
-                    />
+                    <img className={style.logoImgContainer} src={`./assets/Brand/${id}/logo.png`} alt='logo' />
                     <h1 className={style.brandName}>{vendorData?.vendorName}</h1>
 
                     <BlockText
-                        title="Info de la marque"
+                        title='Info de la marque'
                         text={vendorData.vendorDescription}
                         closable={false}
                         expandable={false}
@@ -93,8 +85,8 @@ const Brand: React.FC = () => {
                 <div className={style.activeBrandButtonContainer}>
                     <div className={style.test}>
                         <ButtonSubmit
-                            text="Activer mon pass VIP"
-                            size="large"
+                            text='Activer mon pass VIP'
+                            size='large'
                             callFunctionOnClick={handleActivateVIP}
                         />
                     </div>
