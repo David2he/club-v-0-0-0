@@ -44,7 +44,11 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
                         <img src='./assets/iconBlockText/closeCross.svg' />
                     </div>
                 ) : expandable ? (
-                    <div className={style.actionPosition} onClick={foldUnfoldElement}>
+                    <div
+                        className={style.actionPosition}
+                        onClick={foldUnfoldElement}
+                        style={{ transform: `rotate(${isUnfolded ? "180" : "0"}deg)` }}
+                    >
                         <img src='./assets/iconBlockText/foldV.svg' />
                     </div>
                 ) : null}
