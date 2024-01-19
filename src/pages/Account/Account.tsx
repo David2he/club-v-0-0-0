@@ -22,7 +22,7 @@ const Account: React.FC = () => {
                 <Header />
                 <div className={style.accountContainer}>
                     <div className={style.inputContainer}>
-                        <Input
+                        {/* <Input
                             iconURL={"assets/iconInput/email.svg"}
                             altIcon={"iconMail"}
                             placeholder={"Mail"}
@@ -36,7 +36,22 @@ const Account: React.FC = () => {
                                 }))
                             }
                             type='classic'
-                        />
+                        /> */}
+                        {/* <Input
+                            iconURL={"assets/iconInput/password.svg"}
+                            altIcon={"iconLock"}
+                            placeholder={"Mot de passe"}
+                            labelType={"password"}
+                            name='password'
+                            value={formData.password}
+                            onChange={(e) =>
+                                setFormData((prevState) => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value,
+                                }))
+                            }
+                            type='classic'
+                        /> */}
                         <Input
                             iconURL={"assets/iconInput/identity.svg"}
                             altIcon={"iconLock"}
