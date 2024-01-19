@@ -1,4 +1,3 @@
-
 ```
 club-v-0-0-0
 ├─ .browserslistrc
@@ -20,7 +19,7 @@ club-v-0-0-0
 │  │     ├─ heads
 │  │     │  ├─ add
 │  │     │  │  ├─ BranPage
-│  │     │  │  ├─ formRegister
+│  │     │  │  ├─ RegisterForm
 │  │     │  │  ├─ HomePageMenber
 │  │     │  │  ├─ IonicStorage
 │  │     │  │  └─ react-redux-store
@@ -33,7 +32,7 @@ club-v-0-0-0
 │  │        └─ origin
 │  │           ├─ add
 │  │           │  ├─ BranPage
-│  │           │  ├─ formRegister
+│  │           │  ├─ RegisterForm
 │  │           │  ├─ HomePageMenber
 │  │           │  ├─ IonicStorage
 │  │           │  ├─ OpenBrowserRouteTesting
@@ -44,7 +43,7 @@ club-v-0-0-0
 │  │           ├─ refact
 │  │           │  └─ storage&authContext
 │  │           └─ refacto
-│  │              ├─ RegisterForm
+│  │              ├─ RegisterFormContainer
 │  │              └─ ToastSystem
 │  ├─ objects
 │  │  ├─ 02
@@ -679,7 +678,7 @@ club-v-0-0-0
 │     ├─ heads
 │     │  ├─ add
 │     │  │  ├─ BranPage
-│     │  │  ├─ formRegister
+│     │  │  ├─ RegisterForm
 │     │  │  ├─ HomePageMenber
 │     │  │  ├─ IonicStorage
 │     │  │  └─ react-redux-store
@@ -692,7 +691,7 @@ club-v-0-0-0
 │     │  └─ origin
 │     │     ├─ add
 │     │     │  ├─ BranPage
-│     │     │  ├─ formRegister
+│     │     │  ├─ RegisterForm
 │     │     │  ├─ HomePageMenber
 │     │     │  ├─ IonicStorage
 │     │     │  ├─ OpenBrowserRouteTesting
@@ -704,7 +703,7 @@ club-v-0-0-0
 │     │     ├─ refact
 │     │     │  └─ storage&authContext
 │     │     └─ refacto
-│     │        ├─ RegisterForm
+│     │        ├─ RegisterFormContainer
 │     │        └─ ToastSystem
 │     └─ tags
 ├─ .gitignore
@@ -764,10 +763,10 @@ club-v-0-0-0
 │  │  │  ├─ FormLogin
 │  │  │  │  ├─ FormLogin.module.scss
 │  │  │  │  └─ FormLogin.tsx
-│  │  │  ├─ FormRegister
-│  │  │  │  ├─ FormRegister.module.css
-│  │  │  │  ├─ FormRegister.module.scss
-│  │  │  │  └─ FormRegister.tsx
+│  │  │  ├─ RegisterForm
+│  │  │  │  ├─ RegisterForm.module.css
+│  │  │  │  ├─ RegisterForm.module.scss
+│  │  │  │  └─ RegisterForm.tsx
 │  │  │  ├─ HamburgerMenue
 │  │  │  │  ├─ HamburgerMenue.module.scss
 │  │  │  │  └─ HamburgerMenue.tsx
@@ -812,9 +811,9 @@ club-v-0-0-0
 │  │  │  └─ HomePageMenber.tsx
 │  │  ├─ Register
 │  │  │  └─ Register.tsx
-│  │  └─ RegisterForm
-│  │     ├─ RegisterForm.scss
-│  │     └─ RegisterForm.tsx
+│  │  └─ RegisterFormContainer
+│  │     ├─ RegisterFormContainer.scss
+│  │     └─ RegisterFormContainer.tsx
 │  ├─ services
 │  │  ├─ api.tsx
 │  │  ├─ contexts

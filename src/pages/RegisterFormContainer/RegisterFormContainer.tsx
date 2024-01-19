@@ -1,19 +1,19 @@
 import { IonPage } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
 import { ParrainageCodeForm } from "../../components/Elements/ParrainageCodeForm/ParrainageCodeForm";
-import { FormRegister } from "../../components/Blocks/FormRegister/FormRegister";
+import { RegisterForm } from "../../components/Blocks/RegisterForm/RegisterForm";
 
-const RegisterForm: React.FC = () => {
+const RegisterFormContainer: React.FC = () => {
     return (
         <IonPage id='main-content' className='container'>
             <div className='headerRegister'>
                 <Header />
             </div>
             <div className='content'>
-                <FormRegister />
+                <RegisterForm />
             </div>
         </IonPage>
     );
 };
 
-export default RegisterForm;
+export default RegisterFormContainer;

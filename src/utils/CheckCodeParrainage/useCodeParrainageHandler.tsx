@@ -55,7 +55,7 @@ export const useCodeParrainageHandler = (
         e.preventDefault();
         const code = inputRefs.current.map((input) => input?.value).join("");
         const openInBrowser = async (currentUrl: URL) => {
-            const newUrl = currentUrl.origin + "/RegisterForm";
+            const newUrl = currentUrl.origin + "/RegisterFormContainer";
             await Browser.open({
                 url: `${newUrl}?code=${code}`,
             });
@@ -64,7 +64,7 @@ export const useCodeParrainageHandler = (
         if (goToUrl) {
             openInBrowser(currentUrl);
         } else {
-            history.push("/RegisterForm");
+            history.push("/RegisterFormContainer");
         }
     };
 

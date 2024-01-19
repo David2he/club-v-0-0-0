@@ -1,17 +1,17 @@
 import { useState, useRef } from "react";
-import style from "./FormRegister.module.scss";
+import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
-import { registerFormDataStateProps, RegisterFormDataToSendType, toastType } from "../../../types/Types";
+import { RegisterFormDataStateProps, RegisterFormDataToSendType, toastType } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
-import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
+// import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
 
-export const FormRegister = () => {
+export const RegisterForm = () => {
     const [step, setStep] = useState<number>(0);
     const currentUrl = new URL(window.location.href);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
-    const [formData, setFormData] = useState<registerFormDataStateProps>({
+    const [formData, setFormData] = useState<RegisterFormDataStateProps>({
         email: "",
         password: "",
         fName: "",

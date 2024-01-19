@@ -1,5 +1,5 @@
 import { ProtectedRouteProps } from "../../types/Types";
-import { Route, Redirect } from "react-router";
+import { Route } from "react-router";
 import { useAuth } from "../../services/contexts/AuthContext";
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({

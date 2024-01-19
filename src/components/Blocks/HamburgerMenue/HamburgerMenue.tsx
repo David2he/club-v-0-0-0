@@ -11,20 +11,13 @@ export const HamburguerMenue = () => {
     const { clearToken } = useClearToken();
     return (
         <div className={style.container}>
-            <div
-                className={style.hamburgerIcon}
-                onClick={() => setOpnMenu((prevOpnMenu) => !prevOpnMenu)}
-            >
+            <div className={style.hamburgerIcon} onClick={() => setOpnMenu((prevOpnMenu) => !prevOpnMenu)}>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div
-                className={`${style.containerHamburger} ${
-                    opnMenu ? style.openMenu : style.closeMenu
-                }`}
-            >
-                <p>Mon compte</p>
+            <div className={`${style.containerHamburger} ${opnMenu ? style.openMenu : style.closeMenu}`}>
+                <p onClick={() => navigate("/Account")}>Mon compte</p>
                 <p onClick={() => navigate("/Refferral")}>Parrainer</p>
                 <p>Contact</p>
                 <p onClick={() => clearToken()}>Clear Cache</p>

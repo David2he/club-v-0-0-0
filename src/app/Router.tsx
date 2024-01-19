@@ -4,10 +4,11 @@ import { IonRouterOutlet } from "@ionic/react";
 
 import Home from "../pages/Home";
 import Register from "../pages/Register/Register";
-import RegisterForm from "../pages/RegisterForm/RegisterForm";
+import RegisterFormContainer from "../pages/RegisterFormContainer/RegisterFormContainer";
 import HomePageMenber from "../pages/HomePageMenber/HomePageMenber";
 import Brand from "../pages/Brand/Brand";
 import Refferal from "../pages/Refferal/Refferal";
+import Account from "../pages/Account/Account";
 
 import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 
@@ -16,7 +17,7 @@ const AppRouter: React.FC = () => {
         <IonRouterOutlet animated={false}>
             <Route exact path='/home' component={Home} />
             <Route exact path='/register' component={Register} />
-            <Route exact path='/RegisterForm' component={RegisterForm} />
+            <Route exact path='/RegisterFormContainer' component={RegisterFormContainer} />
             <ProtectedRoute
                 exact
                 path='/homePageMenber'
@@ -26,6 +27,7 @@ const AppRouter: React.FC = () => {
             <ProtectedRoute exact path='/' authenticatedComponent={HomePageMenber} unauthenticatedComponent={Home} />
             <ProtectedRoute exact path='/Brand/:id' authenticatedComponent={Brand} unauthenticatedComponent={Home} />
             <ProtectedRoute exact path='/Refferral' authenticatedComponent={Refferal} unauthenticatedComponent={Home} />
+            <ProtectedRoute exact path='/Account' authenticatedComponent={Account} unauthenticatedComponent={Home} />
         </IonRouterOutlet>
     );
 };

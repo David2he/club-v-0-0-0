@@ -28,13 +28,21 @@ export type toastProps = {
     message: string;
 };
 
-export type registerFormDataStateProps = {
+export type RegisterFormDataStateProps = {
     email: string;
     password: string;
     fName: string;
     name: string;
     phone: string;
     parrainageCode: string | null;
+};
+
+export type RegisterFormDataInAccountStateProps = {
+    email: string;
+    password: string;
+    fName: string;
+    name: string;
+    phone: string;
 };
 
 export type RegisterFormDataToSendType = {

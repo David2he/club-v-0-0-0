@@ -5,7 +5,7 @@ import style from "./RefferalCodeInput.module.scss";
 
 export const RefferalCodeInput = ({ value }: any) => {
     const { getStorageItem } = useStorageServices();
-    const [referralCode, setReferralCode] = useState("");
+    const [referralCode, setReferralCode] = useState("12345");
 
     useEffect(() => {
         const getRefferalCode = async () => {
@@ -26,7 +26,7 @@ export const RefferalCodeInput = ({ value }: any) => {
 
     return (
         <div className={style.test}>
-            <input type="text" value={referralCode} readOnly />
+            <input type='text' value={referralCode} readOnly />
             <div className={style.copyInput}></div>
         </div>
     );
