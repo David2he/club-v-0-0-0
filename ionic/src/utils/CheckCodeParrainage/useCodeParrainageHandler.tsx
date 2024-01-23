@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { Browser } from "@capacitor/browser";
 import { useHistory } from "react-router";
-import { CodeParrainageType } from "../../types/Types";
+import { CodeParrainageType } from "lodge-lib/types/Types";
 
 export const useCodeParrainageHandler = (
     goToUrl?: string,

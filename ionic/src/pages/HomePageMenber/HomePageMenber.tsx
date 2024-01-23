@@ -1,12 +1,13 @@
 import { IonPage } from "@ionic/react";
-import { Header } from "../../components/Blocks/Header/Header";
-import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
+import { Header } from "lodge-lib/components/Blocks/Header/Header";
+import { HamburguerMenue } from "lodge-lib/components/Blocks/HamburgerMenue/HamburgerMenue";
 import { useState } from "react";
-import { Input } from "../../components/Elements/Input/Input";
-import { BlockText } from "../../components/Elements/BlockText/BlockText";
-import { Search } from "../../components/Blocks/Search/Search";
-import { DisplayItemsHomePageMenber } from "../../components/Blocks/DisplayItemsHomePageMenber/DisplayItemsHomePageMenber";
+import { Input } from "lodge-lib/components/Elements/Input/Input";
+import { BlockText } from "lodge-lib/components/Elements/BlockText/BlockText";
+import { Search } from "lodge-lib/components/Blocks/Search/Search";
+import { DisplayItemsHomePageMenber } from "lodge-lib/components/Blocks/DisplayItemsHomePageMenber/DisplayItemsHomePageMenber";
 import "./HomePageMenber.scss";
+import { useClearToken } from "../../utils/useClearToken/useClearToken";
 
 const HomePageMenber: React.FC = () => {
     const parraingageJSX = (): JSX.Element => {
@@ -19,7 +20,7 @@ const HomePageMenber: React.FC = () => {
     return (
         <IonPage id='main-content' className='containerMainAPP'>
             <div className='content'>
-                <HamburguerMenue />
+                <HamburguerMenue useClearToken={useClearToken}/>
                 <Header />
                 <div>
                     <BlockText title='Parrainer quelqu’un' text={parraingageJSX} closable={false} expandable={true} />

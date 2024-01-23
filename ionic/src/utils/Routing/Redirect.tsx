@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { RedirectProps } from "../../types/Types";
+import { RedirectProps } from "lodge-lib/types/Types";
 
 export const Redirect: React.FC<RedirectProps> = ({ path }) => {
     const history = useHistory();

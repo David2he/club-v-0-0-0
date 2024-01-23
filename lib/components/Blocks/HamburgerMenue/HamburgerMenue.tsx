@@ -1,8 +1,13 @@
 import style from "./HamburgerMenue.module.scss";
 import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useClearToken } from "../../../utils/useClearToken/useClearToken";
-export const HamburguerMenue = () => {
+// import { useClearToken } from "../../../utils/useClearToken/useClearToken";
+
+export type HamburguerMenueProps = {
+    useClearToken: any;
+}
+
+export const HamburguerMenue = ({useClearToken}: HamburguerMenueProps) => {
     const history = useHistory();
     const hamburgerMenueRef = useRef<HTMLDivElement>(null);
     const [opnMenu, setOpnMenu] = useState(false);

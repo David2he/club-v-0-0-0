@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { useStorageServices } from "../storages/useStorageServices";
-import { AuthContextType, UserType } from "../../types/Types";
+import { AuthContextType, UserType } from "lodge-lib/types/Types";
 import { decodeToken } from "react-jwt";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);

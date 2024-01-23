@@ -1,6 +1,7 @@
 import { IonPage } from "@ionic/react";
-import { Header } from "../../components/Blocks/Header/Header";
-import { ParrainageCodeForm } from "../../components/Elements/ParrainageCodeForm/ParrainageCodeForm";
+import { Header } from "lodge-lib/components/Blocks/Header/Header";
+import { ParrainageCodeForm } from "lodge-lib/components/Elements/ParrainageCodeForm/ParrainageCodeForm";
+import { useCodeParrainageHandler } from "../../utils/CheckCodeParrainage/useCodeParrainageHandler";
 
 const Register: React.FC = () => {
     return (
@@ -9,7 +10,7 @@ const Register: React.FC = () => {
                 <Header />
             </div>
             <div className='content'>
-                <ParrainageCodeForm loginType='register' />
+                <ParrainageCodeForm loginType='register' useCodeParrainageHandler={useCodeParrainageHandler} />
             </div>
         </IonPage>
     );

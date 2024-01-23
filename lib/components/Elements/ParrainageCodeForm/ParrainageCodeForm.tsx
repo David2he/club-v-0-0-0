@@ -1,13 +1,21 @@
 import "./ParainageCode.scss";
 
 import { ParraingeFormProps } from "../../../types/Types";
-import { useCodeParrainageHandler } from "../../../utils/CheckCodeParrainage/useCodeParrainageHandler";
+// import { useCodeParrainageHandler } from "../../../utils/CheckCodeParrainage/useCodeParrainageHandler";
 import { useEffect } from "react";
+
+export type ParrainageCodeFormProps = {
+    goToUrl: string;
+    loginType: string;
+    onCodeFetch: any;
+    useCodeParrainageHandler: any;
+}
 
 export const ParrainageCodeForm = ({
     goToUrl,
     loginType,
     onCodeFetch,
+    useCodeParrainageHandler,
 }: ParraingeFormProps & React.InputHTMLAttributes<HTMLInputElement>) => {
     const { inputRefs, onSubmitForm, getCurrentCode } = useCodeParrainageHandler(goToUrl, onCodeFetch);
 

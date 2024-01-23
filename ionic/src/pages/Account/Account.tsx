@@ -1,11 +1,12 @@
 import { useState } from "react";
 import { IonPage } from "@ionic/react";
-import { Header } from "../../components/Blocks/Header/Header";
-import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
+import { Header } from "lodge-lib/components/Blocks/Header/Header";
+import { HamburguerMenue } from "lodge-lib/components/Blocks/HamburgerMenue/HamburgerMenue";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
-import { Input } from "../../components/Elements/Input/Input";
-import { RegisterFormDataInAccountStateProps } from "../../types/Types";
+import { Input } from "lodge-lib/components/Elements/Input/Input";
+import { RegisterFormDataInAccountStateProps } from "lodge-lib/types/Types";
 import style from "./Account.module.scss";
+import { useClearToken } from "../../utils/useClearToken/useClearToken";
 
 const Account: React.FC = () => {
     const [formData, setFormData] = useState<RegisterFormDataInAccountStateProps>({
@@ -18,7 +19,7 @@ const Account: React.FC = () => {
     return (
         <IonPage id='main-content' className='containerMainAPP'>
             <div className='content'>
-                <HamburguerMenue />
+                <HamburguerMenue  useClearToken={useClearToken}/>
                 <Header />
                 <div className={style.accountContainer}>
                     <div className={style.inputContainer}>

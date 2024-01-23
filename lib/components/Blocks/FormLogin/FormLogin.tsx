@@ -1,15 +1,14 @@
 import React, { useState, FormEvent } from "react";
-import { useAuth } from "../../../services/contexts/AuthContext";
-import { useHistory } from "react-router-dom";
-import { useStorageServices } from "../../../services/storages/useStorageServices";
+// import { useAuth } from "../../../services/contexts/AuthContext";
+// import { useStorageServices } from "../../../services/storages/useStorageServices";
+// import { handlePostData } from "../../../services/api";
+import style from "./FormLogin.module.scss";
 import { Input } from "../../Elements/Input/Input";
-import { handlePostData } from "../../../services/api";
 import { LoginFormDataToSendType } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { toastType } from "../../../types/Types";
-import style from "./FormLogin.module.scss";
 
-export const FormLogin = () => {
+export const FormLogin = ({useAuth, useStorageServices, handlePostData}: any) => {
     const { setStorageItem, getStorageItem } = useStorageServices();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });

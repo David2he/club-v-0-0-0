@@ -1,17 +1,19 @@
 import { IonPage } from "@ionic/react";
-import { Header } from "../../components/Blocks/Header/Header";
+import { Header } from "lodge-lib/components/Blocks/Header/Header";
 import { useParams } from "react-router-dom";
-import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
-import { BlockText } from "../../components/Elements/BlockText/BlockText";
-import { ButtonSubmit } from "../../components/Elements/Button/ButtonSubmit";
+import { HamburguerMenue } from "lodge-lib/components/Blocks/HamburgerMenue/HamburgerMenue";
+import { BlockText } from "lodge-lib/components/Elements/BlockText/BlockText";
+import { ButtonSubmit } from "lodge-lib/components/Elements/Button/ButtonSubmit";
 import { handlePostData } from "../../services/api";
 import { useStorageServices } from "../../services/storages/useStorageServices";
-import { Toast } from "../../components/Blocks/Toast/Toast";
+import { Toast } from "lodge-lib/components/Blocks/Toast/Toast";
 import { useState } from "react";
 import data from "../../utils/dataTest/data.json";
 import style from "./Brand.module.scss";
-import { toastType } from "../../types/Types";
+import { toastType } from "lodge-lib/types/Types";
 import { useAuth } from "../../services/contexts/AuthContext";
+import { useClearToken } from "../../utils/useClearToken/useClearToken";
+
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -46,7 +48,7 @@ const Brand: React.FC = () => {
     return (
         <IonPage id='main-content' className='containerMainAPP'>
             <div className='content'>
-                <HamburguerMenue />
+                <HamburguerMenue  useClearToken={useClearToken}/>
                 {showToast?.type && showToast?.message && (
                     <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
                 )}

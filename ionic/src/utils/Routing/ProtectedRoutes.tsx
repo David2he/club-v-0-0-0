@@ -1,4 +1,4 @@
-import { ProtectedRouteProps } from "../../types/Types";
+import { ProtectedRouteProps } from "lodge-lib/types/Types";
 import { Route } from "react-router";
 import { useAuth } from "../../services/contexts/AuthContext";
 

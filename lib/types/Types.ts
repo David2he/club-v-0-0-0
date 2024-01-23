@@ -21,6 +21,7 @@ export type ParraingeFormProps = {
     goToUrl?: string;
     loginType?: string;
     onCodeFetch?: (code: string) => void;
+    useCodeParrainageHandler: (any);
 };
 
 export type toastProps = {

@@ -1,9 +1,10 @@
 import { IonPage } from "@ionic/react";
-import { Header } from "../../components/Blocks/Header/Header";
-import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
-import { BlockText } from "../../components/Elements/BlockText/BlockText";
+import { Header } from "lodge-lib/components/Blocks/Header/Header";
+import { HamburguerMenue } from "lodge-lib/components/Blocks/HamburgerMenue/HamburgerMenue";
+import { BlockText } from "lodge-lib/components/Elements/BlockText/BlockText";
 import "./Refferal.scss";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
+import { useClearToken } from "../../utils/useClearToken/useClearToken";
 
 const Refferal: React.FC = () => {
     const getRefferalCode = (): JSX.Element => {
@@ -16,7 +17,7 @@ const Refferal: React.FC = () => {
     return (
         <IonPage id='main-content' className='containerMainAPP'>
             <div className='content'>
-                <HamburguerMenue />
+                <HamburguerMenue useClearToken={useClearToken}/>
                 <Header />
                 <div>
                     <BlockText title='Code Parrainage ' text={getRefferalCode} closable={false} expandable={false} />

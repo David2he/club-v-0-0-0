@@ -1,8 +1,13 @@
 import style from "./ParrainageCodeLoginChoice.module.scss";
 import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
+import React from "react"
 
-export const ParrainageCodeLoginChoice = () => {
+export type ParrainageCodeLoginChoiceProps = {
+    useCodeParrainageHandler: any;
+}
+export const ParrainageCodeLoginChoice = ({useCodeParrainageHandler}: ParrainageCodeLoginChoiceProps) => {
     return (
+        <>
         <div className={style.codeLoginChoiceContainer}>
             <div className={style.orChoiceContainer}>
                 <span></span>
@@ -11,8 +16,9 @@ export const ParrainageCodeLoginChoice = () => {
             </div>
             <p>J'ai un code de parrainage</p>
             <div>
-                <ParrainageCodeForm goToUrl='register' loginType='login' />
+                <ParrainageCodeForm goToUrl='register' loginType='login' useCodeParrainageHandler={useCodeParrainageHandler} />
             </div>
         </div>
+        </>
     );
 };
