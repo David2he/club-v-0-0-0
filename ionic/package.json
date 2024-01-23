@@ -28,6 +28,7 @@
     "axios": "^1.4.0",
     "ionicons": "^7.0.0",
     "jwt-decode": "^4.0.0",
+    "lodge-lib": "file:../lib",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-jwt": "^1.2.0",
