@@ -1,3 +1,4 @@
+"use client";
 import style from "./Header.module.scss";
 import { useHistory } from "react-router";
 export const Header = () => {

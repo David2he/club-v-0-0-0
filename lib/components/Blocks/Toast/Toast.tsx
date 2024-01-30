@@ -15,7 +15,7 @@ export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
         }, 5000);
     };
     fiveSecondsDelayCloseLog();
-    const errorMessage = () => {
+    const errorMessage = (): JSX.Element => {
         return (
             <>
                 <div
@@ -37,7 +37,7 @@ export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
             </>
         );
     };
-    const succesMessage = () => {
+    const succesMessage = (): JSX.Element => {
         return (
             <>
                 <div

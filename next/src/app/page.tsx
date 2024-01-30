@@ -1,15 +1,13 @@
 "use client";
-import { Toast } from "../../../lib/components/Blocks/Toast/Toast";
-import { InputProps } from "../../../lib/types/Types";
-import { useState } from "react";
+
+import { Toast } from "lodge-lib/components/Blocks/Toast/Toast";
+import "lodge-lib/theme/rules.scss";
+import "./reset.scss";
 
 export default function Home() {
     return (
         <main>
-            <div>
-                <p>Get started by editing;</p>
-                <Toast typeLog={"error"} message={"test"} key={0} />
-            </div>
+            <Toast typeLog={"error"} message={"ceci est un test"} />
         </main>
     );
 }
