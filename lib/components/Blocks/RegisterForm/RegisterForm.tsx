@@ -7,7 +7,7 @@ import { Toast } from "../Toast/Toast";
 // import { handlePostData } from "../../../services/api";
 // import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
 
-export const RegisterForm = ({handlePostData}: any) => {
+export const RegisterForm = ({ handlePostData }: any) => {
     const [step, setStep] = useState<number>(0);
     const currentUrl = new URL(window.location.href);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });

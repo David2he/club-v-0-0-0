@@ -5,9 +5,9 @@ import { useHistory } from "react-router";
 
 export type HamburguerMenueProps = {
     useClearToken: any;
-}
+};
 
-export const HamburguerMenue = ({useClearToken}: HamburguerMenueProps) => {
+export const HamburguerMenue = ({ useClearToken }: HamburguerMenueProps) => {
     const history = useHistory();
     const hamburgerMenueRef = useRef<HTMLDivElement>(null);
     const [opnMenu, setOpnMenu] = useState(false);

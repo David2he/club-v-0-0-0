@@ -1,4 +1,5 @@
 import style from "./Toast.module.scss";
+import React from "react";
 import { toastProps } from "../../../types/Types";
 import { useState } from "react";
 
