@@ -1,5 +1,6 @@
 import style from "./Button.module.scss";
 import { ButtonSubmitProps } from "../../../types/Types";
+import React from "react";
 
 export const ButtonSubmit = ({ text, callFunctionOnClick, size }: ButtonSubmitProps) => {
     return (
