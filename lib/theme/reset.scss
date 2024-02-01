@@ -1,3 +1,5 @@
+@import "variables.scss";
+
 *,
 *:before,
 *:after {
@@ -70,6 +72,11 @@ video {
     line-height: 150%;
 }
 
+body {
+    background-color: var(--ion-background-color);
+    color: var(--ion-text-color);
+}
+
 footer,
 header,
 nav,
@@ -108,4 +115,16 @@ table {
 input {
     -webkit-appearance: none;
     border-radius: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+a,
+li,
+ul,
+div {
+    background-color: transparent !important;
 }

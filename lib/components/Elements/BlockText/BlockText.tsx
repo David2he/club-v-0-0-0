@@ -40,11 +40,8 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
             <div className={style.titleANDCrossContainer}>
                 <p className={style.title}>{title}</p>
                 {closable ? (
-                    <div
-                        className={style.actionPosition}
-                        onClick={() => setIsOpen((prevIsopen) => !prevIsopen)}
-                    >
-                        <img src="./assets/iconBlockText/closeCross.svg" />
+                    <div className={style.actionPosition} onClick={() => setIsOpen((prevIsopen) => !prevIsopen)}>
+                        <img src='./assets/iconBlockText/closeCross.svg' />
                     </div>
                 ) : expandable ? (
                     <div
@@ -52,7 +49,7 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
                         onClick={foldUnfoldElement}
                         style={{ transform: `rotate(${isUnfolded ? "180" : "0"}deg)` }}
                     >
-                        <img src="./assets/iconBlockText/foldV.svg" />
+                        <img src='./assets/iconBlockText/foldV.svg' />
                     </div>
                 ) : null}
             </div>
